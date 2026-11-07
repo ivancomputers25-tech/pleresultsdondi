@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - DONDI PRIMARY SCHOOL</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { background: #f0f3f8; color: #222; padding-bottom: 30px; }
+  .header { background: linear-gradient(135deg,#1a4d8f,#0d2f5e); color: white; padding: 16px 12px; position: sticky; top: 0; z-index: 10; }
+  .header-top { display: flex; align-items: center; justify-content: space-between; max-width: 1050px; margin: 0 auto; gap: 10px; }
+  .left { display: flex; align-items: center; gap: 12px; }
+  .badge-logo { width: 52px; height: 52px; background: #ffcc00; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 3px solid white; flex-shrink: 0; }
+  .header h1 { font-size: 19px; line-height: 1.2; }
+  .header p { font-size: 11px; opacity: 0.9; }
+  .user-pill { background: rgba(255,255,255,0.18); padding: 8px 12px; border-radius: 20px; font-size: 12px; text-align: right; flex-shrink: 0; }
+  .user-pill b { display: block; font-size: 13px; }
+  .back { display: inline-block; margin: 12px 0 0 12px; background: white; padding: 8px 14px; border-radius: 20px; text-decoration: none; color: #1a4d8f; font-weight: bold; font-size: 13px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  .wrap { max-width: 1050px; margin: 0 auto; padding: 0 12px; }
+  .card { background: white; border-radius: 14px; padding: 16px; margin-top: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .card h2 { font-size: 16px; color: #1a4d8f; margin-bottom: 10px; }
+  /* KPI */
+  .kpi { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+  .kpi div { text-align: center; padding: 14px 6px; border-radius: 12px; color: white; }
+  .kpi b { display: block; font-size: 23px; }
+  .kpi span { font-size: 11px; opacity: 0.9; }
+  .blue { background: #1a4d8f; } .green { background: #0e8a4d; } .orange { background: #e67e00; } .purple { background: #8e44ad; }
+  /* MENU */
+  .menu { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .menu a { background: white; border-radius: 14px; padding: 18px 10px; text-align: center; text-decoration: none; color: #222; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; flex-direction: column; align-items: center; gap: 6px; border: 1px solid #e5e9f0; position: relative; }
+  .menu a:active { transform: scale(0.97); }
+  .menu .icon { font-size: 34px; }
+  .menu b { font-size: 14px; }
+  .menu small { font-size: 11px; color: #777; line-height: 1.3; }
+  .menu .locked { position: absolute; top: 8px; right: 8px; font-size: 14px; }
+  .menu a.disabled { opacity: 0.45; pointer-events: none; filter: grayscale(0.6); }
+  .menu a.head { background: #1a4d8f; color: white; }
+  .menu a.head small { color: #dbe6ff; }
+  .menu a.green { background: #0e8a4d; color: white; }
+  .menu a.green small { color: #d9ffe9; }
+  .menu a.orange { background: #e67e00; color: white; }
+  .menu a.orange small { color: #ffe9cc; }
+  .notice { font-size: 12px; color: #666; line-height: 1.6; }
+  .table-wrap { overflow-x: auto; margin-top: 10px; }
+  table { width: 100%; border-collapse: collapse; min-width: 500px; }
+  th { background: #1a4d8f; color: white; padding: 10px 8px; font-size: 13px; text-align: left; }
+  td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 14px; }
+  tr:nth-child(even) td { background: #f8faff; }
+  .btn { padding: 12px; border: none; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; }
+  .btn-logout { background: #ffe5e5; color: #c00; border: 1px solid #ffcccc; }
+  .btn-login { background: #1a4d8f; color: white; }
+  @media (max-width: 700px) {
+    .header h1 { font-size: 16px; }
+    .user-pill { font-size: 11px; padding: 6px 8px; }
+    .kpi { grid-template-columns: 1fr 1fr; }
+    .menu { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="left">
+      <div class="badge-logo">🎓</div>
+      <div>
+        <h1>DONDI PRIMARY SCHOOL</h1>
+        <p>P.O BOX 69, YUMBE - UGANDA • Centre No: U______</p>
+      </div>
+    </div>
+    <div class="user-pill" id="userPill">
+      <b id="pillName">Guest</b><span id="pillRole">Viewer</span>
+    </div>
+  </div>
+</div>
+
+<a class="back" href="index.html">⬅️ Back to Home</a>
+
+<div class="wrap">
+
+  <!-- NOT LOGGED IN -->
+  <div class="card" id="notLogged" style="display:none; text-align:center;">
+    <h2>🔐 Please Login First</h2>
+    <p class="notice">You are viewing as Guest. Login to see your dashboard with your permissions.</p>
+    <button class="btn btn-login" style="margin-top:12px;" onclick="window.location.href='login.html'">🔓 Go to Login</button>
+  </div>
+
+  <!-- KPI -->
+  <div class="card">
+    <h2>📊 Dashboard - <span id="welcomeText">Welcome</span></h2>
+    <div class="kpi">
+      <div class="blue"><b id="kTotal">--</b><span>👨‍🎓 Total Pupils</span></div>
+      <div class="green"><b id="kResults">--</b><span>📋 Results Entered</span></div>
+      <div class="orange"><b id="kPass">--</b><span>✅ Pass Rate</span></div>
+      <div class="purple"><b id="kDiv1">--</b><span>🏆 Division 1</span></div>
+    </div>
+    <p class="notice" id="permNotice" style="margin-top:10px;"></p>
+  </div>
+
+  <!-- MENU - SHOWS / HIDES BY ROLE -->
+  <div class="menu" id="mainMenu">
+    <a href="pupils.html" data-role="Headteacher,Teacher,Viewer" id="card-pupils">
+      <div class="icon">👨‍🎓</div><b>Pupils</b><small id="desc-pupils">View Pupils</small>
+    </a>
+    <a href="marks.html" data-role="Headteacher,Teacher" id="card-marks" class="green">
+      <div class="icon">✏️</div><b>Marks Entry</b><small id="desc-marks">Enter D1 - F9</small>
+    </a>
+    <a href="broadsheet.html" data-role="Headteacher,Teacher,Viewer" id="card-broadsheet">
+      <div class="icon">📋</div><b>Broadsheet</b><small>All Results & Ranking</small>
+    </a>
+    <a href="report-card.html" data-role="Headteacher,Teacher,Viewer" id="card-report">
+      <div class="icon">🎓</div><b>Report Card</b><small>Print / PDF Slip</small>
+    </a>
+    <a href="analysis.html" data-role="Headteacher,Teacher,Viewer" id="card-analysis">
+      <div class="icon">📈</div><b>Analysis</b><small>Charts & Graphs</small>
+    </a>
+    <a href="settings.html" data-role="Headteacher" id="card-settings" class="head">
+      <div class="icon">⚙️</div><b>Settings</b><small>Headteacher Only</small>
+    </a>
+    <a href="login.html" data-role="Headteacher,Teacher,Viewer" id="card-login" class="orange">
+      <div class="icon">🔐</div><b>Switch User</b><small>Login as different role</small>
+    </a>
+    <a href="#" onclick="doLogout(); return false;" data-role="Headteacher,Teacher,Viewer" id="card-logout">
+      <div class="icon">🚪</div><b>Logout</b><small>Exit this device</small>
+    </a>
+  </div>
+
+  <!-- TOP PERFORMERS - HEADTEACHER & TEACHER ONLY FULL, VIEWER TOP 5 -->
+  <div class="card" id="topCard">
+    <h2>🥇 Top Performers - <span id="topTitle">Your School</span></h2>
+    <div class="table-wrap"><table><thead><tr><th>🏅 Pos</th><th>👤 Name</th><th>🏫 School</th><th>📊 Total</th><th>🏆 Division</th></tr></thead><tbody id="topList"><tr><td colspan="5">Loading...</td></tr></tbody></table></div>
+  </div>
+
+  <div class="card" style="text-align:center;">
+    <button class="btn btn-logout" onclick="doLogout()">🚪 Logout</button>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const BASE_URL = "https://xgadezouciekpsflwxdd.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_b12h9rtjnQd6LVDqc1_h5g_gakojeC5.";
+  const supabaseClient = supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+
+  // Get user - default Viewer if not logged in
+  let user = null;
+  try { user = JSON.parse(localStorage.getItem("dondi_user") || "null"); } catch(e){}
+  if(!user) user = { username:"guest", full_name:"Guest", role:"Viewer", school:"Combined" };
+
+  const ROLE_ICON = { "Headteacher":"👑", "Teacher":"👩‍🏫", "Viewer":"👀" };
+  document.getElementById('pillName').textContent = ROLE_ICON[user.role] + " " + (user.full_name || user.username);
+  document.getElementById('pillRole').textContent = user.role + " • " + (user.school || "Combined");
+  document.getElementById('welcomeText').textContent = "Welcome, " + (user.full_name || user.username) + " (" + user.role + ")";
+  document.getElementById('topTitle').textContent = user.school || "Combined";
+
+  // Permission messages
+  const NOTICES = {
+    "Headteacher": "👑 <b>Headteacher Access:</b> You can see ALL pages — Pupils, Marks, Broadsheet, Report Cards, Analysis, <b>Settings + Save Year</b>. You can add, edit, delete.",
+    "Teacher": "👩‍🏫 <b>Teacher Access:</b> You can Add Pupils, Enter Marks, View Broadsheet, Report Cards & Analysis. <b>Settings is locked.</b> Your school filter is set to " + (user.school || "Combined") + ".",
+    "Viewer": "👀 <b>Viewer Access:</b> You can only VIEW Broadsheet, Report Cards & Analysis. <b>Marks Entry and Settings are locked.</b> Login as Teacher / Headteacher to edit."
+  };
+  document.getElementById('permNotice').innerHTML = NOTICES[user.role] || NOTICES["Viewer"];
+
+  // Hide / Lock cards by role
+  document.querySelectorAll('#mainMenu a').forEach(a=>{
+    const allowed = (a.getAttribute('data-role')||"").split(",");
+    const isAllowed = allowed.includes(user.role);
+    if(!isAllowed){
+      // For Viewer, show Marks & Settings as locked, not hidden - so they understand
+      a.classList.add('disabled');
+      a.innerHTML += '<span class="locked">🔒</span>';
+      // Change description to locked
+      const small = a.querySelector('small');
+      if(small) small.textContent = "🔒 Locked for " + user.role;
+    } else {
+      // Update descriptions by role
+      if(a.id==="card-pupils" && user.role==="Viewer") document.getElementById('desc-pupils').textContent = "View Only - No Add";
+      if(a.id==="card-marks" && user.role==="Teacher") document.getElementById('desc-marks').textContent = "Enter D1 - F9 (Your School)";
+    }
+  });
+
+  // Show login prompt if guest (not really logged in)
+  if(user.username==="guest"){
+    document.getElementById('notLogged').style.display="block";
+  }
+
+  // Load stats filtered by user's school
+  async function loadDashboard(){
+    const { data: pupils } = await supabaseClient.from('pupils').select('*');
+    const { data: results } = await supabaseClient.from('results').select('*');
+    if(!pupils || !results) return;
+    const pmap = {}; pupils.forEach(p=>pmap[p.id]=p);
+    let rows = results.map(r=>({...r, pupil: pmap[r.pupil_id]})).filter(r=>r.pupil);
+    // Filter by school for Teacher
+    if(user.school && user.school!=="Combined") rows = rows.filter(r=>r.pupil.school===user.school);
+    let pupilsFiltered = pupils;
+    if(user.school && user.school!=="Combined") pupilsFiltered = pupils.filter(p=>p.school===user.school);
+    const total = pupilsFiltered.length;
+    const entered = rows.length;
+    const pass = rows.filter(r=>r.division!=="Div U").length;
+    const d1 = rows.filter(r=>r.division==="Div 1").length;
+    document.getElementById('kTotal').textContent = total;
+    document.getElementById('kResults').textContent = entered + "/" + total;
+    document.getElementById('kPass').textContent = entered ? Math.round(pass/entered*100)+"%" : "0%";
+    document.getElementById('kDiv1').textContent = d1;
+    // Top performers - Viewer sees only top 5
+    const limit = user.role==="Viewer" ? 5 : 10;
+    const sorted = [...rows].sort((a,b)=>a.total-b.total).slice(0, limit);
+    if(sorted.length===0) document.getElementById('topList').innerHTML="<tr><td colspan='5'>No results yet.</td></tr>";
+    else document.getElementById('topList').innerHTML = sorted.map((r,i)=>`<tr><td><b>${i+1}</b> ${i===0?"🥇":i===1?"🥈":i===2?"🥉":""}</td><td><b>${r.pupil.name}</b></td><td>${r.pupil.school}</td><td><b>${r.total}</b></td><td><b>${r.division}</b></td></tr>`).join('');
+  }
+  loadDashboard();
+
+  function doLogout(){
+    localStorage.removeItem("dondi_user");
+    window.location.href = "login.html";
+  }
+</script>
+</body>
+</html>

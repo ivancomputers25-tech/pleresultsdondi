@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pupils - DONDI PRIMARY SCHOOL</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { background: #f0f3f8; color: #222; padding-bottom: 30px; }
+  /* HEADER */
+  .header { background: linear-gradient(135deg,#1a4d8f,#0d2f5e); color: white; text-align: center; padding: 16px 12px; position: sticky; top: 0; z-index: 10; }
+  .header-top { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .badge-logo { width: 56px; height: 56px; background: #ffcc00; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; border: 3px solid white; flex-shrink: 0; }
+  .header h1 { font-size: 20px; line-height: 1.2; text-align: left; }
+  .header p { font-size: 12px; opacity: 0.9; margin-top: 3px; }
+  .header .centre { background: rgba(255,255,255,0.15); display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; margin-top: 8px; }
+  .back { display: inline-block; margin: 12px 0 0 12px; background: white; padding: 8px 14px; border-radius: 20px; text-decoration: none; color: #1a4d8f; font-weight: bold; font-size: 13px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  .wrap { max-width: 950px; margin: 0 auto; padding: 0 12px; }
+  /* CARD */
+  .card { background: white; border-radius: 14px; padding: 16px; margin-top: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .card h2 { font-size: 17px; color: #1a4d8f; margin-bottom: 12px; }
+  /* INPUT WITH ICON */
+  .field { position: relative; margin-bottom: 12px; }
+  .field span.icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 19px; }
+  .field input, .field select { outline: none; width: 100%; padding: 13px 12px 13px 44px; border: 1.5px solid #d0d7e5; border-radius: 10px; font-size: 15px; background: #f9fbff; outline: none; }
+  .field input:focus, .field select:focus { border-color: #1a4d8f; background: white; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  /* BUTTONS */
+  .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+  .btn-save { background: #0e8a4d; color: white; }
+  .btn-save:active { transform: scale(0.98); }
+  .btn-search { background: #1a4d8f; color: white; padding: 12px; }
+  .btn-del { background: #ffe5e5; color: #c00; border: 1px solid #ffcccc; padding: 7px 10px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+  .btn-edit { background: #fff3cc; color: #8a6d00; border: 1px solid #ffe9a8; padding: 7px 10px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+  /* FILTERS */
+  .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .filters select, .filters input {  outline: none; padding: 11px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px; width: 100%; }
+  /* TABLE */
+  .table-wrap { overflow-x: auto; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; min-width: 600px; }
+  th { background: #1a4d8f; color: white; padding: 10px 8px; font-size: 13px; text-align: left; }
+  td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 14px; }
+  tr:nth-child(even) td { background: #f8faff; }
+  .pill { padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+  .pill-A { background: #e6f0ff; color: #1a4d8f; }
+  .pill-B { background: #e6ffef; color: #0e8a4d; }
+  .count { font-size: 13px; color: #666; margin-top: 8px; }
+  #msg { text-align: center; font-size: 13px; margin-top: 10px; min-height: 18px; }
+  @media (max-width: 600px) {
+    .header h1 { font-size: 17px; }
+    .row { grid-template-columns: 1fr; }
+    .filters { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="badge-logo">🎓</div>
+    <div>
+      <h1>DONDI PRIMARY SCHOOL</h1>
+      <p>P.O BOX 69, YUMBE - UGANDA</p>
+      <p>STAR NURSERY & PRIMARY SCHOOL - DONDI | DONDI PRIMARY SCHOOL</p>
+    </div>
+  </div>
+  <div class="centre">🏫 Centre No: U______ &nbsp;|&nbsp; EMIS: _________ &nbsp;|&nbsp; Year: 2026</div>
+</div>
+
+<a class="back" href="index.html">⬅️ Back to Home</a>
+
+<div class="wrap">
+
+  <!-- ADD PUPIL FORM -->
+  <div class="card">
+    <h2>➕ Add New Pupil</h2>
+    <div class="field"><span class="icon">👤</span><input id="pupilName" placeholder="Pupil Full Name e.g. Adrawa John"></div>
+    <div class="row">
+      <div class="field"><span class="icon">⚧️</span><select id="pupilGender"><option value="">Select Gender</option><option>Male</option><option>Female</option></select></div>
+      <div class="field"><span class="icon">🔢</span><input id="indexNo" placeholder="Index Number e.g. 001234/001"></div>
+    </div>
+    <div class="row">
+      <div class="field"><span class="icon">🏫</span><select id="school"><option value="School A">⭐ STAR NURSERY & PRIMARY SCHOOL - DONDI</option><option value="School B">📘 DONDI PRIMARY SCHOOL</option></select></div>
+      <div class="field"><span class="icon">🏷️</span><select id="stream"><option>Stream A</option><option>Stream B</option><option>Stream C</option></select></div>
+    </div>
+    <div class="field"><span class="icon">📅</span><input id="year" type="number" value="2026" placeholder="Year"></div>
+    <button class="btn btn-save" onclick="savePupil()">💾 Save Pupil</button>
+    <div id="msg"></div>
+  </div>
+
+  <!-- SEARCH & FILTER -->
+  <div class="card">
+    <h2>🔍 Search Pupils</h2>
+    <div class="filters">
+      <input id="searchBox" placeholder="🔍 Search by name or index..." oninput="loadPupils()">
+      <select id="filterSchool" onchange="loadPupils()">
+        <option value="All">🌍 All Schools - Combined</option>
+        <option value="School A">⭐ STAR NURSERY & PRIMARY SCHOOL - DONDI Only</option>
+        <option value="School B">📘 DONDI PRIMARY SCHOOL Only</option>
+      </select>
+    </div>
+    <div class="count" id="countText">Loading pupils...</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>👤 Name</th><th>⚧️ Gender</th><th>🔢 Index</th><th>🏫 School</th><th>🏷️ Stream</th><th>⚙️ Action</th></tr></thead>
+        <tbody id="pupilList"><tr><td colspan="6">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="text-align:center;">
+    <button class="btn btn-search" onclick="window.location.href='marks.html'">✏️ Go to Marks Entry →</button>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const BASE_URL = "https://xgadezouciekpsflwxdd.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_b12h9rtjnQd6LVDqc1_h5g_gakojeC5.";
+  const supabaseClient = supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+  let editingId = null;
+
+  async function savePupil(){
+    const name = document.getElementById('pupilName').value.trim();
+    const gender = document.getElementById('pupilGender').value;
+    const index_number = document.getElementById('indexNo').value.trim();
+    const school = document.getElementById('school').value;
+    const stream = document.getElementById('stream').value;
+    const year = parseInt(document.getElementById('year').value) || 2026;
+    const msg = document.getElementById('msg');
+    if(!name){ msg.textContent = "⚠️ Please enter pupil name"; msg.style.color="red"; return; }
+    if(!gender){ msg.textContent = "⚠️ Please select gender"; msg.style.color="red"; return; }
+
+    msg.textContent = "Saving..."; msg.style.color="#1a4d8f";
+    let result;
+    if(editingId){
+      result = await supabaseClient.from('pupils').update({name,gender,index_number,school,stream,year}).eq('id',editingId);
+    } else {
+      result = await supabaseClient.from('pupils').insert([{name,gender,index_number,school,stream,year}]);
+    }
+    if(result.error){ msg.textContent = "❌ " + result.error.message; msg.style.color="red"; }
+    else {
+      msg.textContent = "✅ Pupil saved! Shows on all devices."; msg.style.color="green";
+      document.getElementById('pupilName').value=""; document.getElementById('indexNo').value=""; editingId=null;
+      loadPupils();
+    }
+  }
+
+  async function loadPupils(){
+    const { data, error } = await supabaseClient.from('pupils').select('*').order('name');
+    if(error){ document.getElementById('pupilList').innerHTML = "<tr><td colspan='6'>"+error.message+"</td></tr>"; return; }
+    const q = document.getElementById('searchBox').value.toLowerCase();
+    const f = document.getElementById('filterSchool').value;
+    let filtered = data.filter(p => {
+      const matchQ = (p.name||"").toLowerCase().includes(q) || (p.index_number||"").toLowerCase().includes(q);
+      const matchF = f==="All" || p.school===f;
+      return matchQ && matchF;
+    });
+    document.getElementById('countText').textContent = `Showing ${filtered.length} pupils • Total in Supabase: ${data.length}`;
+    if(filtered.length===0){ document.getElementById('pupilList').innerHTML="<tr><td colspan='6'>No pupils found. Add one above.</td></tr>"; return; }
+    document.getElementById('pupilList').innerHTML = filtered.map(p => `
+      <tr>
+        <td><b>${p.name}</b></td>
+        <td>${p.gender||""}</td>
+        <td>${p.index_number||""}</td>
+        <td><span class="pill ${p.school==='School A'?'pill-A':'pill-B'}">${p.school}</span></td>
+        <td>${p.stream||""}</td>
+        <td><button class="btn-edit" onclick="editPupil(${p.id})">✏️ Edit</button> <button class="btn-del" onclick="deletePupil(${p.id})">🗑️ Delete</button></td>
+      </tr>`).join('');
+  }
+
+  async function deletePupil(id){
+    if(!confirm("Delete this pupil? This will also delete their results.")) return;
+    await supabaseClient.from('pupils').delete().eq('id',id);
+    loadPupils();
+  }
+  async function editPupil(id){
+    const { data } = await supabaseClient.from('pupils').select('*').eq('id',id).single();
+    if(!data) return;
+    document.getElementById('pupilName').value=data.name;
+    document.getElementById('pupilGender').value=data.gender;
+    document.getElementById('indexNo').value=data.index_number||"";
+    document.getElementById('school').value=data.school;
+    document.getElementById('stream').value=data.stream||"Stream A";
+    document.getElementById('year').value=data.year||2026;
+    editingId=id;
+    document.getElementById('msg').textContent="✏️ Editing - tap Save to update"; document.getElementById('msg').style.color="#e67e00";
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  // Auto set school from index.html filter
+  const saved = localStorage.getItem("selectedSchool");
+  if(saved && saved!=="Combined") document.getElementById('filterSchool').value=saved;
+  loadPupils();
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Broadsheet - DONDI PRIMARY SCHOOL</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { background: #f0f3f8; color: #222; padding-bottom: 30px; }
+  .header { background: linear-gradient(135deg,#1a4d8f,#0d2f5e); color: white; text-align: center; padding: 16px 12px; position: sticky; top: 0; z-index: 10; }
+  .header-top { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .badge-logo { width: 56px; height: 56px; background: #ffcc00; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; border: 3px solid white; flex-shrink: 0; }
+  .header h1 { font-size: 20px; line-height: 1.2; text-align: left; }
+  .header p { font-size: 12px; opacity: 0.9; margin-top: 3px; }
+  .centre { background: rgba(255,255,255,0.15); display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; margin-top: 8px; }
+  .back { display: inline-block; margin: 12px 0 0 12px; background: white; padding: 8px 14px; border-radius: 20px; text-decoration: none; color: #1a4d8f; font-weight: bold; font-size: 13px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  .wrap { max-width: 1050px; margin: 0 auto; padding: 0 12px; }
+  .card { background: white; border-radius: 14px; padding: 16px; margin-top: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .card h2 { font-size: 17px; color: #1a4d8f; margin-bottom: 12px; }
+  .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .controls select, .controls input { outline: none; padding: 11px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px; width: 100%; background: #f9fbff; }
+  .btn { padding: 12px; border: none; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; }
+  .btn-print { background: #1a4d8f; color: white; }
+  .btn-report { background: #0e8a4d; color: white; }
+  .btn-marks { background: #ffcc00; color: #000; }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 12px; }
+  /* STATS */
+  .stats { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .stat { text-align: center; padding: 10px 4px; border-radius: 10px; background: #f8faff; border: 1px solid #e5e9f0; }
+  .stat b { display: block; font-size: 18px; color: #1a4d8f; }
+  .stat span { font-size: 11px; color: #666; }
+  .table-wrap { overflow-x: auto; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; min-width: 750px; }
+  th { background: #1a4d8f; color: white; padding: 10px 8px; font-size: 13px; text-align: center; }
+  td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 14px; text-align: center; }
+  td:first-child, td:nth-child(2) { text-align: left; }
+  tr:nth-child(even) td { background: #f8faff; }
+  .agg { font-weight: bold; padding: 3px 7px; border-radius: 6px; font-size: 12px; }
+  .agg-D1, .agg-D2 { background: #d4edda; color: #0e5a2d; }
+  .agg-C3, .agg-C4, .agg-C5, .agg-C6 { background: #fff3cd; color: #856404; }
+  .agg-P7, .agg-P8 { background: #ffe0b2; color: #7a4a00; }
+  .agg-F9 { background: #f8d7da; color: #721c24; }
+  .rank1 { background: #ffcc00 !important; font-weight: bold; }
+  .pill { padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+  .pill-A { background: #e6f0ff; color: #1a4d8f; }
+  .pill-B { background: #e6ffef; color: #0e8a4d; }
+  .print-header { display: none; }
+  @media (max-width: 700px) {
+    .header h1 { font-size: 17px; }
+    .controls { grid-template-columns: 1fr; }
+    .btn-row { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  @media print {
+    body { background: white; }
+    .header, .back, .controls, .btn-row, .card:first-child { display: none !important; }
+    .print-header { display: block !important; text-align: center; margin-bottom: 12px; }
+    .print-header h1 { font-size: 22px; color: #1a4d8f; }
+    .print-header p { font-size: 12px; }
+    .card { box-shadow: none; border: none; padding: 0; }
+    .table-wrap { overflow: visible; }
+    table { min-width: 100%; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="badge-logo">🎓</div>
+    <div>
+      <h1>DONDI PRIMARY SCHOOL</h1>
+      <p>P.O BOX 69, YUMBE - UGANDA</p>
+      <p>STAR NURSERY & PRIMARY SCHOOL - DONDI | DONDI PRIMARY SCHOOL</p>
+    </div>
+  </div>
+  <div class="centre">🏫 Centre No: 000364 &nbsp;|&nbsp; EMIS: _________ &nbsp;|&nbsp; Year: 2026</div>
+</div>
+
+<a class="back" href="index.html">⬅️ Back to Home</a>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>📋 Broadsheet - P.7 PLE Results</h2>
+    <div class="controls">
+      <select id="filterSchool" onchange="loadBroadsheet()">
+        <option value="Combined">🌍 Combined - Both Schools</option>
+        <option value="School A">⭐ STAR NURSERY & PRIMARY SCHOOL - DONDI</option>
+        <option value="School B">📘 DONDI PRIMARY SCHOOL</option>
+      </select>
+      <select id="filterDiv" onchange="loadBroadsheet()">
+        <option value="All">🏆 All Divisions</option>
+        <option value="Div 1">🏆 Div 1</option>
+        <option value="Div 2">Div 2</option>
+        <option value="Div 3">Div 3</option>
+        <option value="Div 4">Div 4</option>
+        <option value="Div U">Div U</option>
+      </select>
+      <input id="searchBox" placeholder="🔍 Search pupil..." oninput="loadBroadsheet()">
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="totalCount">--</b><span>Total Pupils</span></div>
+      <div class="stat"><b id="d1Count">--</b><span>Div 1</span></div>
+      <div class="stat"><b id="d2Count">--</b><span>Div 2</span></div>
+      <div class="stat"><b id="d3Count">--</b><span>Div 3</span></div>
+      <div class="stat"><b id="d4uCount">--</b><span>Div 4 + U</span></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-print" onclick="window.print()">🖨️ Print Broadsheet</button>
+      <button class="btn btn-report" onclick="window.location.href='report card.html'">🎓 Go to Report Cards</button>
+      <button class="btn btn-marks" onclick="window.location.href='marks.html'">✏️ Go to Marks Entry</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="print-header">
+      <h1>DONDI PRIMARY SCHOOL</h1>
+      <p>P.O BOX 69, YUMBE - UGANDA | Centre No: U______ | Year: 2026</p>
+      <p><b id="printTitle">BROADSHEET - COMBINED</b></p>
+    </div>
+    <div id="countText" style="font-size:13px;color:#666;">Loading...</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>🏅 Pos</th><th>👤 Pupil Name</th><th>🏫 School</th><th>📖 Eng</th><th>🔢 Math</th><th>🔬 Sci</th><th>🌍 SST</th><th>📊 Total</th><th>🏆 Div</th></tr></thead>
+        <tbody id="broadsheetList"><tr><td colspan="9">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const BASE_URL = "https://xgadezouciekpsflwxdd.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_b12h9rtjnQd6LVDqc1_h5g_gakojeC5.";
+  const supabaseClient = supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+
+  async function loadBroadsheet(){
+    const { data: results } = await supabaseClient.from('results').select('*');
+    const { data: pupils } = await supabaseClient.from('pupils').select('*');
+    if(!results || !pupils){ document.getElementById('broadsheetList').innerHTML="<tr><td colspan='9'>Error loading. Check Supabase.</td></tr>"; return; }
+    const pmap = {}; pupils.forEach(p=>pmap[p.id]=p);
+    let rows = results.map(r => ({...r, pupil: pmap[r.pupil_id]})).filter(r=>r.pupil);
+    // Filters
+    const fSchool = document.getElementById('filterSchool').value;
+    const fDiv = document.getElementById('filterDiv').value;
+    const q = document.getElementById('searchBox').value.toLowerCase();
+    if(fSchool!=="Combined") rows = rows.filter(r=>r.pupil.school===fSchool);
+    if(fDiv!=="All") rows = rows.filter(r=>r.division===fDiv);
+    if(q) rows = rows.filter(r=>r.pupil.name.toLowerCase().includes(q));
+    // Sort by total ascending (best first), then name
+    rows.sort((a,b)=> a.total - b.total || a.pupil.name.localeCompare(b.pupil.name));
+    // Stats - use all filtered by school only for stats
+    let statsRows = results.map(r=>({...r, pupil: pmap[r.pupil_id]})).filter(r=>r.pupil);
+    if(fSchool!=="Combined") statsRows = statsRows.filter(r=>r.pupil.school===fSchool);
+    document.getElementById('totalCount').textContent = statsRows.length;
+    document.getElementById('d1Count').textContent = statsRows.filter(r=>r.division==="Div 1").length;
+    document.getElementById('d2Count').textContent = statsRows.filter(r=>r.division==="Div 2").length;
+    document.getElementById('d3Count').textContent = statsRows.filter(r=>r.division==="Div 3").length;
+    document.getElementById('d4uCount').textContent = statsRows.filter(r=>r.division==="Div 4"||r.division==="Div U").length;
+    document.getElementById('printTitle').textContent = "BROADSHEET - " + (fSchool==="Combined" ? "COMBINED - BOTH SCHOOLS" : fSchool.toUpperCase());
+    document.getElementById('countText').textContent = `Showing ${rows.length} pupils • Sorted by Total Aggregate (Lowest = Best) • ${fSchool}`;
+    if(rows.length===0){ document.getElementById('broadsheetList').innerHTML="<tr><td colspan='9'>No results found. Go to Marks Entry.</td></tr>"; return; }
+    // Ranking with ties: same total = same position
+    let lastTotal = null, lastPos = 0;
+    document.getElementById('broadsheetList').innerHTML = rows.map((r,i)=>{
+      let pos = i+1;
+      if(r.total===lastTotal) pos = lastPos; else { lastPos = pos; lastTotal = r.total; }
+      const cls = pos===1 ? "rank1" : "";
+      return `<tr class="${cls}"><td><b>${pos}</b>${pos===1?" 🥇":pos===2?" 🥈":pos===3?" 🥉":""}</td>
+      <td><b>${r.pupil.name}</b><br><small>${r.pupil.index_number||""} • ${r.pupil.gender||""} • ${r.pupil.stream||""}</small></td>
+      <td><span class="pill ${r.pupil.school==='School A'?'pill-A':'pill-B'}">${r.pupil.school}</span></td>
+      <td><span class="agg agg-${r.eng_agg}">${r.eng_agg}</span></td>
+      <td><span class="agg agg-${r.math_agg}">${r.math_agg}</span></td>
+      <td><span class="agg agg-${r.sci_agg}">${r.sci_agg}</span></td>
+      <td><span class="agg agg-${r.sst_agg}">${r.sst_agg}</span></td>
+      <td><b>${r.total}</b></td><td><b>${r.division}</b></td></tr>`;
+    }).join('');
+    localStorage.setItem("selectedSchool", fSchool);
+  }
+  const saved = localStorage.getItem("selectedSchool");
+  if(saved) document.getElementById('filterSchool').value = saved;
+  loadBroadsheet();
+</script>
+</body>
+</html>

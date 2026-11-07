@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - DONDI PRIMARY SCHOOL</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { background: linear-gradient(135deg,#1a4d8f,#0d2f5e); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 15px; }
+  .login-box { background: white; border-radius: 18px; padding: 24px 20px; width: 100%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+  .logo { width: 72px; height: 72px; background: #ffcc00; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 12px; border: 3px solid #1a4d8f; }
+  .logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  h1 { text-align: center; font-size: 21px; color: #1a4d8f; }
+  p.sub { text-align: center; font-size: 13px; color: #666; margin: 6px 0 16px; line-height: 1.4; }
+  .field { position: relative; margin-bottom: 12px; }
+  .field span.icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 19px; }
+  .field input, .field select { width: 100%; padding: 14px 12px 14px 46px; border: 1.5px solid #d0d7e5; border-radius: 12px; font-size: 15px; background: #f9fbff; outline: none; }
+  .field input:focus { border-color: #1a4d8f; background: white; }
+  .btn { width: 100%; padding: 15px; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; background: #1a4d8f; color: white; margin-top: 6px; }
+  .btn:active { transform: scale(0.98); }
+  .btn-green { background: #0e8a4d; }
+  .btn-guest { background: #f0f3f8; color: #1a4d8f; border: 1.5px solid #d0d7e5; margin-top: 10px; }
+  #msg, #setupMsg { text-align: center; font-size: 13px; margin-top: 12px; min-height: 18px; }
+  .roles { margin-top: 16px; background: #f8faff; border-radius: 12px; padding: 14px; }
+  .roles h3 { font-size: 13px; color: #1a4d8f; margin-bottom: 10px; }
+  .role-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 12px; line-height: 1.5; }
+  .role-row .ic { font-size: 22px; flex-shrink: 0; }
+  .back { display: block; text-align: center; margin-top: 14px; font-size: 13px; color: #1a4d8f; text-decoration: none; font-weight: bold; }
+  .show { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: #1a4d8f; cursor: pointer; font-weight: bold; }
+  .setup-banner { background: #fff3cd; border: 1.5px solid #ffcc00; border-radius: 12px; padding: 12px; font-size: 13px; line-height: 1.6; text-align: center; margin-bottom: 14px; }
+  .user-info { display: none; text-align: center; }
+  .user-info .avatar { font-size: 50px; }
+  .priv-box { background: #eef4ff; border-radius: 10px; padding: 12px; margin-top: 12px; text-align: left; font-size: 13px; line-height: 1.7; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- ========== 1. NORMAL LOGIN ========== -->
+<div class="login-box" id="loginForm">
+  <div class="logo">🎓</div>
+  <h1>DONDI PRIMARY SCHOOL</h1>
+  <p class="sub">P.O BOX 69, YUMBE - UGANDA<br>🔐 Staff Login - PLE Results System</p>
+
+  <div class="field"><span class="icon">👤</span><input id="username" placeholder="Username" autocomplete="username"></div>
+  <div class="field"><span class="icon">🔑</span><input id="password" type="password" placeholder="Password" autocomplete="current-password"><span class="show" onclick="togglePw('password')">👁️</span></div>
+
+  <button class="btn" onclick="doLogin()">🔓 Login</button>
+  <button class="btn btn-guest" onclick="guestLogin()">👀 Continue as Guest Viewer</button>
+  <div id="msg"></div>
+
+  <div class="roles">
+    <h3>👥 User Privileges</h3>
+    <div class="role-row"><div class="ic">👑</div><div><b>Headteacher</b><br>✅ All access: Pupils, Marks, Broadsheet, Report Cards, Analysis, <b>Settings + Save Year + Delete All</b></div></div>
+    <div class="role-row"><div class="ic">👩‍🏫</div><div><b>Teacher</b><br>✅ Add Pupils, Enter Marks, View Broadsheet & Report Cards<br>❌ Cannot access Settings</div></div>
+    <div class="role-row"><div class="ic">👀</div><div><b>Viewer / Parent</b><br>✅ View Broadsheet, Analysis, Report Cards only</div></div>
+  </div>
+  <a class="back" href="index.html">⬅️ Back to Home</a>
+</div>
+
+<!-- ========== 2. FIRST TIME SETUP - HEADTEACHER CREATES ACCOUNT ========== -->
+<div class="login-box hidden" id="setupForm">
+  <div class="logo">👑</div>
+  <h1>First Time Setup</h1>
+  <p class="sub">No Headteacher account found.<br>Create the Headteacher account now.</p>
+
+  <div class="setup-banner">
+    ⚠️ <b>This shows ONLY ONCE.</b><br>After you create this account, this form will never appear again, even after uploading to server. Headteacher details are saved in Supabase <b>Settings</b>.
+  </div>
+
+  <div class="field"><span class="icon">📝</span><input id="setupFullName" placeholder="Full Name e.g. John Doe"></div>
+  <div class="field"><span class="icon">👤</span><input id="setupUsername" placeholder="Choose Username e.g. headteacher"></div>
+  <div class="field"><span class="icon">🔑</span><input id="setupPassword" type="password" placeholder="Choose Password"><span class="show" onclick="togglePw('setupPassword')">👁️</span></div>
+  <div class="field"><span class="icon">🔑</span><input id="setupPassword2" type="password" placeholder="Confirm Password"></div>
+  <div class="field"><span class="icon">📞</span><input id="setupPhone" placeholder="Phone (Optional)"></div>
+
+  <button class="btn btn-green" onclick="createHeadteacher()">✅ Create Headteacher Account</button>
+  <div id="setupMsg"></div>
+  <p style="font-size:12px;color:#666;text-align:center;margin-top:10px;">You will then login with this username & password.<br>You can add Teachers later in Settings.</p>
+</div>
+
+<!-- ========== 3. LOGGED IN INFO ========== -->
+<div class="login-box user-info" id="userInfo">
+  <div class="avatar" id="avatarIcon">👑</div>
+  <h1 id="welcomeName">Welcome</h1>
+  <p class="sub" id="welcomeRole"></p>
+  <div class="priv-box" id="privList"></div>
+  <button class="btn" onclick="goDashboard()" style="margin-top:14px;">📊 Go to Dashboard →</button>
+  <button class="btn btn-guest" onclick="doLogout()">🚪 Logout</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const BASE_URL = "https://xgadezouciekpsflwxdd.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_b12h9rtjnQd6LVDqc1_h5g_gakojeC5.";
+  const supabaseClient = supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+
+  function togglePw(id){
+    const p = document.getElementById(id);
+    p.type = p.type==="password" ? "text" : "password";
+  }
+
+  const PRIVS = {
+    "Headteacher": { icon:"👑", can: ["➕ Add / Edit Pupils","✏️ Enter / Edit Marks","📋 View Broadsheet","🎓 Print Report Cards","📈 View Analysis","⚙️ Settings","💾 Save Year Archive","🗑️ Delete Pupils / Results"] },
+    "Teacher": { icon:"👩‍🏫", can: ["➕ Add / Edit Pupils","✏️ Enter / Edit Marks","📋 View Broadsheet","🎓 Print Report Cards","📈 View Analysis"] , cannot: ["⚙️ Settings","💾 Save Year Archive","🗑️ Delete All"] },
+    "Viewer": { icon:"👀", can: ["📋 View Broadsheet","📈 View Analysis","🎓 View Report Cards"], cannot: ["➕ Add Pupils","✏️ Enter Marks","⚙️ Settings","💾 Save Year"] }
+  };
+
+  // CHECK ON LOAD: Does Headteacher exist in Supabase?
+  async function checkFirstTime(){
+    const { data, error } = await supabaseClient.from('app_users').select('id').eq('role','Headteacher').eq('active', true).limit(1);
+    // If no headteacher found -> show setup, hide login
+    if(!error && (!data || data.length===0)){
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('setupForm').classList.remove('hidden');
+      return true;
+    }
+    // Headteacher exists -> show normal login
+    document.getElementById('loginForm').classList.remove('hidden');
+    document.getElementById('setupForm').classList.add('hidden');
+    return false;
+  }
+
+  // CREATE HEADTEACHER + SAVE TO SETTINGS
+  async function createHeadteacher(){
+    const full_name = document.getElementById('setupFullName').value.trim();
+    const username = document.getElementById('setupUsername').value.trim().toLowerCase();
+    const pw = document.getElementById('setupPassword').value;
+    const pw2 = document.getElementById('setupPassword2').value;
+    const phone = document.getElementById('setupPhone').value.trim();
+    const msg = document.getElementById('setupMsg');
+
+    if(!full_name || !username || !pw){ msg.textContent="⚠️ Fill Full Name, Username and Password"; msg.style.color="red"; return; }
+    if(pw.length < 4){ msg.textContent="⚠️ Password must be at least 4 characters"; msg.style.color="red"; return; }
+    if(pw !== pw2){ msg.textContent="❌ Passwords do not match"; msg.style.color="red"; return; }
+
+    msg.textContent="⏳ Creating Headteacher account..."; msg.style.color="#1a4d8f";
+
+    // Double-check no headteacher was created meanwhile
+    const { data: existing } = await supabaseClient.from('app_users').select('id').eq('role','Headteacher').limit(1);
+    if(existing && existing.length>0){ msg.textContent="⚠️ Headteacher already exists. Please Login."; msg.style.color="red"; checkFirstTime(); return; }
+
+    // 1. Save to app_users
+    const { data: newUser, error } = await supabaseClient.from('app_users').insert([{
+      username: username,
+      password: pw,
+      full_name: full_name,
+      role: 'Headteacher',
+      school: 'Combined',
+      active: true
+    }]).select().single();
+
+    if(error){ msg.textContent="❌ "+error.message; msg.style.color="red"; return; }
+
+    // 2. Save to system_settings so Settings page shows Headteacher info
+    const { data: settings } = await supabaseClient.from('system_settings').select('id').limit(1).maybeSingle();
+    if(settings){
+      await supabaseClient.from('system_settings').update({ headteacher_name: full_name, headteacher_username: username }).eq('id', settings.id);
+    } else {
+      await supabaseClient.from('system_settings').insert([{ headteacher_name: full_name, headteacher_username: username, school_a_name: 'STAR NURSERY AND PRIMARY SCHOOL - DONDI', school_b_name: 'DONDI PRIMARY SCHOOL', current_year: 2026 }]);
+    }
+
+    msg.textContent="✅ Headteacher account created! Now login..."; msg.style.color="green";
+    // Hide setup forever - next load will check Supabase and show login
+    setTimeout(()=>{
+      document.getElementById('setupForm').classList.add('hidden');
+      document.getElementById('loginForm').classList.remove('hidden');
+      document.getElementById('username').value = username;
+      document.getElementById('msg').textContent = "✅ Account created. Login with your new password.";
+      document.getElementById('msg').style.color="green";
+    }, 800);
+  }
+
+  async function doLogin(){
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value;
+    const msg = document.getElementById('msg');
+    if(!u || !p){ msg.textContent="⚠️ Enter username and password"; msg.style.color="red"; return; }
+    msg.textContent="🔍 Checking..."; msg.style.color="#1a4d8f";
+    const { data, error } = await supabaseClient.from('app_users').select('*').eq('username',u).eq('password',p).eq('active',true).maybeSingle();
+    if(error || !data){ msg.textContent="❌ Wrong username or password"; msg.style.color="red"; return; }
+    localStorage.setItem("dondi_user", JSON.stringify({ username: data.username, full_name: data.full_name, role: data.role, school: data.school }));
+    if(data.school && data.school!=="Combined") localStorage.setItem("selectedSchool", data.school);
+    showUser(data);
+  }
+
+  function guestLogin(){
+    const guest = { username:"guest", full_name:"Guest", role:"Viewer", school:"Combined" };
+    localStorage.setItem("dondi_user", JSON.stringify(guest));
+    showUser(guest);
+  }
+
+  function showUser(u){
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('setupForm').classList.add('hidden');
+    const box = document.getElementById('userInfo');
+    box.style.display="block";
+    const priv = PRIVS[u.role] || PRIVS["Viewer"];
+    document.getElementById('avatarIcon').textContent = priv.icon;
+    document.getElementById('welcomeName').textContent = "Welcome, " + (u.full_name || u.username);
+    document.getElementById('welcomeRole').textContent = u.role + " • " + (u.school || "Combined");
+    let html = "<b>✅ You can:</b><br>" + priv.can.map(c=>"• "+c).join("<br>");
+    if(priv.cannot) html += "<br><br><b>❌ You cannot:</b><br>" + priv.cannot.map(c=>"• "+c).join("<br>");
+    document.getElementById('privList').innerHTML = html;
+  }
+
+  function goDashboard(){ window.location.href="index.html"; }
+  function doLogout(){ localStorage.removeItem("dondi_user"); location.reload(); }
+
+  // If already logged in, show info
+  const saved = localStorage.getItem("dondi_user");
+  if(saved){
+    try { showUser(JSON.parse(saved)); } catch(e){ checkFirstTime(); }
+  } else {
+    checkFirstTime();
+  }
+  document.getElementById('password').addEventListener('keypress', e=>{ if(e.key==="Enter") doLogin(); });
+</script>
+</body>
+</html>

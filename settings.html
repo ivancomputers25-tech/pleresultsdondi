@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings - DONDI PRIMARY SCHOOL</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { background: #f0f3f8; color: #222; padding-bottom: 30px; }
+  .header { background: linear-gradient(135deg,#1a4d8f,#0d2f5e); color: white; text-align: center; padding: 16px 12px; position: sticky; top: 0; z-index: 10; }
+  .header-top { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .badge-logo { width: 56px; height: 56px; background: #ffcc00; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; border: 3px solid white; flex-shrink: 0; }
+  .header h1 { font-size: 20px; line-height: 1.2; text-align: left; }
+  .header p { font-size: 12px; opacity: 0.9; }
+  .centre { background: rgba(255,255,255,0.15); display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; margin-top: 8px; }
+  .back { display: inline-block; margin: 12px 0 0 12px; background: white; padding: 8px 14px; border-radius: 20px; text-decoration: none; color: #1a4d8f; font-weight: bold; font-size: 13px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  .wrap { max-width: 1050px; margin: 0 auto; padding: 0 12px; }
+  .card { background: white; border-radius: 14px; padding: 16px; margin-top: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .card h2 { font-size: 16px; color: #1a4d8f; margin-bottom: 12px; }
+  .field { position: relative; margin-bottom: 11px; }
+  .field span.icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 18px; }
+  .field input, .field select { width: 100%; padding: 13px 12px 13px 44px; border: 1.5px solid #d0d7e5; border-radius: 10px; font-size: 14px; background: #f9fbff; outline: none; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .btn { padding: 13px; border: none; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; }
+  .btn-blue { background: #1a4d8f; color: white; }
+  .btn-green { background: #0e8a4d; color: white; }
+  .btn-orange { background: #e67e00; color: white; }
+  .btn-red { background: #c00; color: white; }
+  .btn-grey { background: #eef2f8; color: #1a4d8f; border: 1px solid #d0d7e5; }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .table-wrap { overflow-x: auto; margin-top: 10px; }
+  table { width: 100%; border-collapse: collapse; min-width: 650px; }
+  th { background: #1a4d8f; color: white; padding: 10px 8px; font-size: 13px; text-align: left; }
+  td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 13px; }
+  tr:nth-child(even) td { background: #f8faff; }
+  .pill { padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+  .pill-head { background: #ffe9cc; color: #8a4a00; }
+  .pill-teach { background: #e6f0ff; color: #1a4d8f; }
+  .pill-view { background: #eee; color: #666; }
+  .pill-active { background: #d4edda; color: #0e5a2d; }
+  .pill-block { background: #f8d7da; color: #721c24; }
+  .mini { padding: 7px 10px; border-radius: 8px; border: 1px solid #ddd; cursor: pointer; font-size: 12px; font-weight: bold; background: white; }
+  .mini-block { background: #ffe5e5; color: #c00; }
+  .mini-unblock { background: #e6ffef; color: #0e8a4d; }
+  .danger { background: #fff5f5; border: 1.5px solid #ffcccc; border-radius: 12px; padding: 14px; margin-top: 12px; }
+  .danger h3 { color: #c00; font-size: 14px; margin-bottom: 8px; }
+  .danger p { font-size: 12px; color: #666; line-height: 1.6; }
+  .head-box { background: linear-gradient(135deg,#fff8e1,#fff3cd); border: 1.5px solid #ffcc00; border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .head-box b { font-size: 15px; }
+  .head-box span { font-size: 13px; color: #555; }
+  #msg { text-align: center; font-size: 13px; margin-top: 10px; min-height: 18px; }
+  @media (max-width: 700px) {
+    .header h1 { font-size: 17px; }
+    .grid, .grid3, .btn-row { grid-template-columns: 1fr; }
+    .head-box { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="badge-logo">🎓</div>
+    <div>
+      <h1>DONDI PRIMARY SCHOOL</h1>
+      <p>P.O BOX 69, YUMBE - UGANDA</p>
+      <p>STAR NURSERY & PRIMARY SCHOOL - DONDI | DONDI PRIMARY SCHOOL</p>
+    </div>
+  </div>
+  <div class="centre">⚙️ SETTINGS • HEADTEACHER ONLY • <span id="headName">Headteacher</span></div>
+</div>
+
+<a class="back" href="dashboard.html">⬅️ Back to Dashboard</a>
+
+<div class="wrap">
+
+  <!-- CURRENT HEADTEACHER - FROM system_settings -->
+  <div class="card">
+    <h2>👑 Current Headteacher - From Settings</h2>
+    <div class="head-box">
+      <div>
+        <b id="currentHeadName">Loading...</b><br>
+        <span>Username: <b id="currentHeadUsername">-</b> &nbsp;|&nbsp; Role: Headteacher &nbsp;|&nbsp; School: Combined</span><br>
+        <span id="currentHeadNote" style="font-size:12px;color:#888;">This is the account created on first setup. Saved in Supabase, not on phone.</span>
+      </div>
+      <div style="min-width:180px;">
+        <button class="btn btn-orange" onclick="editHeadteacherName()">✏️ Edit Name</button>
+      </div>
+    </div>
+    <div class="danger">
+      <h3>🔄 Change Headteacher - New Headteacher Takes Over</h3>
+      <p>Use this ONLY when the school gets a new Headteacher. It will:<br>
+            1. Delete the current Headteacher account from <b>app_users</b><br>
+            2. Clear Headteacher info from <b>system_settings</b><br>
+            3. Log you out and take you to Login page where the <b>"Create Headteacher Account"</b> form will appear again ONCE for the new Headteacher.<br>
+      <b>Teachers and pupils will NOT be deleted.</b></p>
+      <div class="btn-row" style="margin-top:10px;">
+        <button class="btn btn-red" onclick="resetHeadteacher()">🔄 Reset Headteacher</button>
+        <button class="btn btn-grey" onclick="window.location.href='login.html'">🔐 Go to Login Page</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYSTEM SETTINGS -->
+  <div class="card">
+    <h2>🏫 System Settings - School Details</h2>
+    <div class="field"><span class="icon">🏫</span><input id="schoolA" placeholder="School A Name"></div>
+    <div class="field"><span class="icon">📘</span><input id="schoolB" placeholder="School B Name"></div>
+    <div class="grid">
+      <div class="field"><span class="icon">🔢</span><input id="centreNo" placeholder="Centre Number e.g. U1234"></div>
+      <div class="field"><span class="icon">📅</span><input id="currentYear" type="number" placeholder="Current Year e.g. 2026"></div>
+    </div>
+    <div class="field"><span class="icon">🆔</span><input id="emis" placeholder="EMIS Number"></div>
+    <button class="btn btn-blue" onclick="saveSystem()">💾 Save System Settings</button>
+    <div id="msg"></div>
+  </div>
+
+  <!-- USER MANAGEMENT -->
+  <div class="card">
+    <h2>👥 User Management - Add / Edit / Block Users</h2>
+    <div class="grid">
+      <div class="field"><span class="icon">👤</span><input id="newUsername" placeholder="Username e.g. teacherC"></div>
+      <div class="field"><span class="icon">🔑</span><input id="newPassword" placeholder="Password"></div>
+    </div>
+    <div class="grid">
+      <div class="field"><span class="icon">📝</span><input id="newFullName" placeholder="Full Name"></div>
+      <div class="field"><span class="icon">👑</span><select id="newRole"><option>Teacher</option><option>Headteacher</option><option>Viewer</option></select></div>
+    </div>
+    <div class="field"><span class="icon">🏫</span><select id="newSchool"><option>School A</option><option>School B</option><option>Combined</option></select></div>
+    <button class="btn btn-green" onclick="addUser()">➕ Add New User</button>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>👤 User</th><th>👑 Role</th><th>🏫 School</th><th>✅ Status</th><th>⚙️ Action</th></tr></thead>
+        <tbody id="userList"><tr><td colspan="5">Loading users...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ARCHIVE -->
+  <div class="card">
+    <h2>💾 Year Archive - Save & View Old Results</h2>
+    <p style="font-size:13px;color:#666;line-height:1.6;">This saves ALL current results for the year you choose. After archiving, you can clear for new candidates.</p>
+    <div class="grid" style="margin-top:12px;">
+      <div class="field"><span class="icon">📅</span><input id="archiveYear" type="number" value="2026" placeholder="Year to Archive"></div>
+      <button class="btn btn-orange" onclick="saveYear()">💾 Save Year Archive</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>📅 Year</th><th>👨‍🎓 Pupils Archived</th><th>🏆 Div 1</th><th>📊 Avg Total</th></tr></thead>
+        <tbody id="archiveList"><tr><td colspan="4">Loading archives...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- NEW YEAR RESET -->
+  <div class="card">
+    <h2>🆕 Update System For New Entry Of Candidates</h2>
+    <p style="font-size:13px;color:#666;line-height:1.6;">Use this at start of new year / new P.7 intake. <b>Step 1:</b> Archive old year above. <b>Step 2:</b> Clear results. <b>Step 3:</b> Change year below. Pupils list stays, or you can clear pupils too.</p>
+    <div class="grid" style="margin-top:12px;">
+      <div class="field"><span class="icon">📅</span><input id="newYearInput" type="number" value="2027" placeholder="New Year e.g. 2027"></div>
+      <button class="btn btn-blue" onclick="setNewYear()">📅 Set New Year & Keep Pupils</button>
+    </div>
+    <div class="danger">
+      <h3>⚠️ Danger Zone - Delete Data</h3>
+      <p>These actions cannot be undone. Archive first!</p>
+      <div class="btn-row" style="margin-top:10px;">
+        <button class="btn btn-orange" onclick="clearResults()">🧹 Clear All Results Only (Keep Pupils)</button>
+        <button class="btn btn-red" onclick="clearAll()">🗑️ Clear Pupils + Results (Fresh Start)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="text-align:center;">
+    <button class="btn btn-grey" onclick="window.location.href='dashboard.html'">📊 Back to Dashboard</button>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const BASE_URL = "https://xgadezouciekpsflwxdd.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_b12h9rtjnQd6LVDqc1_h5g_gakojeC5.";
+  const supabaseClient = supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+
+  // HEADTEACHER ONLY CHECK
+  const user = JSON.parse(localStorage.getItem("dondi_user") || "{}");
+  if(user.role !== "Headteacher"){
+    alert("❌ Only Headteacher can access Settings");
+    window.location.href = "dashboard.html";
+  }
+  document.getElementById('headName').textContent = user.full_name || user.username || "Headteacher";
+
+  // Load system settings + Headteacher from system_settings
+  async function loadSystem(){
+    const { data } = await supabaseClient.from('system_settings').select('*').order('id', {ascending:false}).limit(1).maybeSingle();
+    if(data){
+      document.getElementById('schoolA').value = data.school_a_name || "";
+      document.getElementById('schoolB').value = data.school_b_name || "";
+      document.getElementById('centreNo').value = data.centre_number || "";
+      document.getElementById('currentYear').value = data.current_year || 2026;
+      document.getElementById('emis').value = data.emis || "";
+      localStorage.setItem("centreNo", data.centre_number || "");
+      localStorage.setItem("currentYear", data.current_year || 2026);
+
+      // Show Headteacher from settings
+      document.getElementById('currentHeadName').textContent = data.headteacher_name || user.full_name || "Headteacher (Not in Settings yet)";
+      document.getElementById('currentHeadUsername').textContent = data.headteacher_username || user.username || "-";
+      // If settings has no headteacher but user is headteacher, save it now
+      if(!data.headteacher_name && user.full_name){
+        await supabaseClient.from('system_settings').update({ headteacher_name: user.full_name, headteacher_username: user.username }).eq('id', data.id);
+      }
+    } else {
+      document.getElementById('currentHeadName').textContent = user.full_name || "Headteacher";
+      document.getElementById('currentHeadUsername').textContent = user.username || "-";
+    }
+  }
+
+  async function saveSystem(){
+    const obj = { centre_number: document.getElementById('centreNo').value, school_a_name: document.getElementById('schoolA').value, school_b_name: document.getElementById('schoolB').value, current_year: parseInt(document.getElementById('currentYear').value)||2026, emis: document.getElementById('emis').value };
+    const { data: existing } = await supabaseClient.from('system_settings').select('id').limit(1).maybeSingle();
+    let res;
+    if(existing) res = await supabaseClient.from('system_settings').update(obj).eq('id', existing.id);
+    else res = await supabaseClient.from('system_settings').insert([{...obj, headteacher_name: user.full_name, headteacher_username: user.username}]);
+    const msg = document.getElementById('msg');
+    if(res.error){ msg.textContent="❌ "+res.error.message; msg.style.color="red"; }
+    else { msg.textContent="✅ System settings saved! Centre No and Year updated on all pages."; msg.style.color="green"; localStorage.setItem("centreNo", obj.centre_number); localStorage.setItem("currentYear", obj.current_year); }
+  }
+
+  // Edit Headteacher Display Name (not password)
+  async function editHeadteacherName(){
+    const newName = prompt("Edit Headteacher Full Name (shown in Settings):", document.getElementById('currentHeadName').textContent);
+    if(newName===null || !newName.trim()) return;
+    const { data: existing } = await supabaseClient.from('system_settings').select('id').limit(1).maybeSingle();
+    if(existing) await supabaseClient.from('system_settings').update({ headteacher_name: newName.trim() }).eq('id', existing.id);
+    // Also update in app_users for consistency
+    await supabaseClient.from('app_users').update({ full_name: newName.trim() }).eq('username', user.username).eq('role','Headteacher');
+    document.getElementById('currentHeadName').textContent = newName.trim();
+    document.getElementById('headName').textContent = newName.trim();
+    alert("✅ Headteacher name updated");
+  }
+
+  // RESET HEADTEACHER - The key function
+  async function resetHeadteacher(){
+    if(!confirm("⚠️ RESET HEADTEACHER?\n\nThis will DELETE the current Headteacher account. You will be logged out. The new Headteacher will create his own account on the Login page.\n\nTeachers and pupils will NOT be deleted.\n\nContinue?")) return;
+    const confirmText = prompt("Type RESET to confirm:");
+    if(confirmText !== "RESET"){ alert("Cancelled"); return; }
+
+    // 1. Delete all Headteacher accounts from app_users
+    const { error: delErr } = await supabaseClient.from('app_users').delete().eq('role','Headteacher');
+    if(delErr){ alert("❌ "+delErr.message); return; }
+
+    // 2. Clear headteacher info from system_settings
+    const { data: existing } = await supabaseClient.from('system_settings').select('id').limit(1).maybeSingle();
+    if(existing){
+      await supabaseClient.from('system_settings').update({ headteacher_name: null, headteacher_username: null }).eq('id', existing.id);
+    }
+
+    // 3. Logout and go to login - login.html will now show Create Headteacher form because no headteacher exists
+    localStorage.removeItem("dondi_user");
+    alert("✅ Headteacher reset done!\n\nNow the Login page will show 'Create Headteacher Account' for the new Headteacher.");
+    window.location.href = "login.html";
+  }
+
+  // Users
+  async function loadUsers(){
+    const { data, error } = await supabaseClient.from('app_users').select('*').order('role');
+    if(error){ document.getElementById('userList').innerHTML="<tr><td colspan='5'>"+error.message+"</td></tr>"; return; }
+    if(!data || data.length===0){ document.getElementById('userList').innerHTML="<tr><td colspan='5'>No users yet.</td></tr>"; return; }
+    document.getElementById('userList').innerHTML = data.map(u=>`
+      <tr>
+        <td><b>${u.username}</b><br><small>${u.full_name||""}</small></td>
+        <td><span class="pill ${u.role==='Headteacher'?'pill-head':u.role==='Teacher'?'pill-teach':'pill-view'}">${u.role}</span></td>
+        <td>${u.school}</td>
+        <td><span class="pill ${u.active?'pill-active':'pill-block'}">${u.active?'✅ Active':'🚫 Blocked'}</span></td>
+        <td>
+          <button class="mini" onclick="editUser(${u.id})">✏️ Edit</button>
+          <button class="mini" onclick="resetPassword(${u.id})">🔑 Reset Pw</button>
+          <button class="mini ${u.active?'mini-block':'mini-unblock'}" onclick="toggleBlock(${u.id}, ${u.active})">${u.active?'🚫 Block':'✅ Unblock'}</button>
+          <button class="mini" onclick="deleteUser(${u.id})">🗑️ Delete</button>
+        </td>
+      </tr>`).join('');
+  }
+  async function addUser(){
+    const username = document.getElementById('newUsername').value.trim().toLowerCase();
+    const password = document.getElementById('newPassword').value;
+    const full_name = document.getElementById('newFullName').value.trim();
+    const role = document.getElementById('newRole').value;
+    const school = document.getElementById('newSchool').value;
+    if(!username || !password){ alert("Enter username and password"); return; }
+    const { error } = await supabaseClient.from('app_users').insert([{username, password, full_name, role, school, active:true}]);
+    if(error) alert("❌ "+error.message);
+    else { alert("✅ User added"); document.getElementById('newUsername').value=""; document.getElementById('newPassword').value=""; loadUsers(); }
+  }
+  async function toggleBlock(id, current){
+    if(!confirm(current ? "Block this user? They will not be able to login." : "Unblock this user?")) return;
+    await supabaseClient.from('app_users').update({active: !current}).eq('id', id);
+    loadUsers();
+  }
+  async function deleteUser(id){
+    if(!confirm("Delete this user permanently?")) return;
+    await supabaseClient.from('app_users').delete().eq('id', id);
+    loadUsers();
+  }
+  async function editUser(id){
+    const { data } = await supabaseClient.from('app_users').select('*').eq('id', id).single();
+    if(!data) return;
+    const newName = prompt("Edit Full Name:", data.full_name||"");
+    if(newName===null) return;
+    const newRole = prompt("Edit Role (Headteacher / Teacher / Viewer):", data.role);
+    if(newRole===null) return;
+    const newSchool = prompt("Edit School (School A / School B / Combined):", data.school);
+    if(newSchool===null) return;
+    await supabaseClient.from('app_users').update({full_name:newName, role:newRole, school:newSchool}).eq('id', id);
+    loadUsers();
+    loadSystem();
+  }
+  async function resetPassword(id){
+    const np = prompt("Enter new password for this user:");
+    if(!np) return;
+    await supabaseClient.from('app_users').update({password: np}).eq('id', id);
+    alert("✅ Password updated to: " + np);
+  }
+
+  // Archive
+  async function saveYear(){
+    const year = parseInt(document.getElementById('archiveYear').value)||2026;
+    if(!confirm(`Save ALL results for year ${year} as archive?`)) return;
+    const { data: pupils } = await supabaseClient.from('pupils').select('*');
+    const { data: results } = await supabaseClient.from('results').select('*');
+    if(!pupils || !results){ alert("No data"); return; }
+    const rows = results.map(r=>{
+      const p = pupils.find(x=>x.id===r.pupil_id); if(!p) return null;
+      return { year, pupil_name:p.name, gender:p.gender, index_number:p.index_number, school:p.school, stream:p.stream, eng_agg:r.eng_agg, math_agg:r.math_agg, sci_agg:r.sci_agg, sst_agg:r.sst_agg, total:r.total, division:r.division };
+    }).filter(Boolean);
+    const { error } = await supabaseClient.from('year_archives').insert(rows);
+    if(error) alert("❌ "+error.message);
+    else { alert(`✅ Year ${year} saved! ${rows.length} pupils archived.`); loadArchives(); }
+  }
+  async function loadArchives(){
+    const { data } = await supabaseClient.from('year_archives').select('*');
+    if(!data || data.length===0){ document.getElementById('archiveList').innerHTML="<tr><td colspan='4'>No archives yet.</td></tr>"; return; }
+    const byYear = {};
+    data.forEach(r=>{ if(!byYear[r.year]) byYear[r.year]=[]; byYear[r.year].push(r); });
+    document.getElementById('archiveList').innerHTML = Object.keys(byYear).sort((a,b)=>b-a).map(y=>{
+      const arr = byYear[y];
+      const d1 = arr.filter(r=>r.division==="Div 1").length;
+      const avg = (arr.reduce((s,r)=>s+(r.total||0),0)/arr.length).toFixed(1);
+      return `<tr><td><b>${y}</b></td><td>${arr.length}</td><td>${d1}</td><td>${avg}</td></tr>`;
+    }).join('');
+  }
+
+  // New Year
+  async function setNewYear(){
+    const y = parseInt(document.getElementById('newYearInput').value)||2027;
+    if(!confirm(`Set system year to ${y}? All new pupils will use this year.`)) return;
+    const { data: existing } = await supabaseClient.from('system_settings').select('id').limit(1).maybeSingle();
+    if(existing) await supabaseClient.from('system_settings').update({current_year:y}).eq('id', existing.id);
+    document.getElementById('currentYear').value = y;
+    localStorage.setItem("currentYear", y);
+    alert(`✅ System year updated to ${y}. Ready for new candidates.`);
+  }
+  async function clearResults(){
+    if(!confirm("Clear ALL results? Pupils will remain. Archive first if you have not!")) return;
+    const { error } = await supabaseClient.from('results').delete().neq('id', 0);
+    if(error) alert("❌ "+error.message); else alert("✅ All results cleared. Pupils remain. Ready for new marks entry.");
+  }
+  async function clearAll(){
+    if(!confirm("⚠️ DELETE ALL PUPILS + RESULTS? This is fresh start for new intake. Archive first!")) return;
+    const c2 = prompt("Type DELETE to confirm:");
+    if(c2!=="DELETE"){ alert("Cancelled"); return; }
+    await supabaseClient.from('results').delete().neq('id', 0);
+    await supabaseClient.from('pupils').delete().neq('id', 0);
+    alert("✅ All pupils + results cleared. System is fresh for new candidates.");
+  }
+
+  loadSystem(); loadUsers(); loadArchives();
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marks Entry - DONDI PRIMARY SCHOOL</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { background: #f0f3f8; color: #222; padding-bottom: 30px; }
+  .header { background: linear-gradient(135deg,#1a4d8f,#0d2f5e); color: white; text-align: center; padding: 16px 12px; position: sticky; top: 0; z-index: 10; }
+  .header-top { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .badge-logo { width: 56px; height: 56px; background: #ffcc00; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; border: 3px solid white; flex-shrink: 0; }
+  .header h1 { font-size: 20px; line-height: 1.2; text-align: left; }
+  .header p { font-size: 12px; opacity: 0.9; margin-top: 3px; }
+  .centre { background: rgba(255,255,255,0.15); display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; margin-top: 8px; }
+  .back { display: inline-block; margin: 12px 0 0 12px; background: white; padding: 8px 14px; border-radius: 20px; text-decoration: none; color: #1a4d8f; font-weight: bold; font-size: 13px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  .wrap { max-width: 950px; margin: 0 auto; padding: 0 12px; }
+  .card { background: white; border-radius: 14px; padding: 16px; margin-top: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .card h2 { font-size: 17px; color: #1a4d8f; margin-bottom: 12px; }
+  .field { position: relative; margin-bottom: 12px; }
+  .field span.icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 19px; z-index: 2; }
+  .field input, .field select { width: 100%; padding: 13px 12px 13px 44px; border: 1.5px solid #d0d7e5; border-radius: 10px; font-size: 15px; background: #f9fbff; outline: none; }
+  .field input:focus, .field select:focus { border-color: #1a4d8f; background: white; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+  .btn-save { background: #0e8a4d; color: white; }
+  .btn-blue { background: #1a4d8f; color: white; padding: 12px; }
+  .btn-del { background: #ffe5e5; color: #c00; border: 1px solid #ffcccc; padding: 7px 10px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+  /* RESULT PREVIEW */
+  .preview { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .preview div { text-align: center; padding: 14px 8px; border-radius: 10px; border: 2px solid #1a4d8f; background: #eef4ff; }
+  .preview b { display: block; font-size: 22px; color: #1a4d8f; }
+  .preview span { font-size: 12px; color: #666; }
+  .preview .div1 { border-color: #0e8a4d; background: #e6ffef; }
+  .preview .div1 b { color: #0e8a4d; }
+  #msg { text-align: center; font-size: 13px; margin-top: 10px; min-height: 18px; }
+  .table-wrap { overflow-x: auto; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; min-width: 650px; }
+  th { background: #1a4d8f; color: white; padding: 10px 8px; font-size: 13px; text-align: left; }
+  td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 14px; }
+  tr:nth-child(even) td { background: #f8faff; }
+  .agg { font-weight: bold; padding: 3px 8px; border-radius: 6px; font-size: 12px; }
+  .agg-D1, .agg-D2 { background: #d4edda; color: #0e5a2d; }
+  .agg-C3, .agg-C4, .agg-C5, .agg-C6 { background: #fff3cd; color: #856404; }
+  .agg-P7, .agg-P8 { background: #ffe0b2; color: #7a4a00; }
+  .agg-F9 { background: #f8d7da; color: #721c24; }
+  .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .filters select, .filters input { padding: 11px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px; width: 100%; }
+  .legend { font-size: 12px; color: #666; line-height: 1.6; margin-top: 10px; background: #f9f9f9; padding: 10px; border-radius: 8px; }
+  @media (max-width: 600px) {
+    .header h1 { font-size: 17px; }
+    .grid { grid-template-columns: 1fr; }
+    .filters { grid-template-columns: 1fr; }
+    .preview { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="badge-logo">🎓</div>
+    <div>
+      <h1>DONDI PRIMARY SCHOOL</h1>
+      <p>P.O BOX 69, YUMBE - UGANDA</p>
+      <p>STAR NURSERY & PRIMARY SCHOOL - DONDI | DONDI PRIMARY SCHOOL</p>
+    </div>
+  </div>
+  <div class="centre">🏫 Centre No: 000364 &nbsp;|&nbsp; EMIS: _________ &nbsp;|&nbsp; Year: 2026</div>
+</div>
+
+<a class="back" href="index.html">⬅️ Back to Home</a>
+
+<div class="wrap">
+
+  <!-- ENTRY FORM -->
+  <div class="card">
+    <h2>✏️ Enter PLE Aggregates (D1 - F9)</h2>
+    <div class="field"><span class="icon">👤</span><select id="pupilSelect" onchange="onPupilChange()"><option value="">🔍 Select Pupil...</option></select></div>
+    <div id="pupilInfo" style="font-size:13px;color:#666;margin-bottom:10px;"></div>
+
+    <div class="grid">
+      <div class="field"><span class="icon">📖</span><select id="eng" onchange="calc()"><option value="">English - Select</option><option>D1</option><option>D2</option><option>C3</option><option>C4</option><option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option></select></div>
+      <div class="field"><span class="icon">🔢</span><select id="math" onchange="calc()"><option value="">Mathematics - Select</option><option>D1</option><option>D2</option><option>C3</option><option>C4</option><option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option></select></div>
+      <div class="field"><span class="icon">🔬</span><select id="sci" onchange="calc()"><option value="">Science - Select</option><option>D1</option><option>D2</option><option>C3</option><option>C4</option><option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option></select></div>
+      <div class="field"><span class="icon">🌍</span><select id="sst" onchange="calc()"><option value="">SST - Select</option><option>D1</option><option>D2</option><option>C3</option><option>C4</option><option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option></select></div>
+    </div>
+
+    <div class="preview">
+      <div><b id="totalVal">--</b><span>📊 TOTAL AGGREGATE</span></div>
+      <div id="divBox"><b id="divVal">--</b><span>🏆 DIVISION</span></div>
+    </div>
+
+    <button class="btn btn-save" style="margin-top:14px;" onclick="saveResult()">💾 Save Result</button>
+    <div id="msg"></div>
+  </div>
+
+  <!-- SAVED RESULTS -->
+  <div class="card">
+    <h2>📋 Saved Results</h2>
+    <div class="filters">
+      <input id="searchBox" placeholder="🔍 Search pupil..." oninput="loadResults()">
+      <select id="filterSchool" onchange="loadResults()">
+        <option value="All">🌍 Combined - Both Schools</option>
+        <option value="School A">⭐ STAR NURSERY & PRIMARY SCHOOL - DONDI Only</option>
+        <option value="School B">📘 DONDI PRIMARY SCHOOL Only</option>
+      </select>
+    </div>
+    <div id="countText" style="font-size:13px;color:#666;margin-top:8px;">Loading...</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>👤 Pupil</th><th>📖 Eng</th><th>🔢 Math</th><th>🔬 Sci</th><th>🌍 SST</th><th>📊 Total</th><th>🏆 Div</th><th>⚙️ Action</th></tr></thead>
+        <tbody id="resultList"><tr><td colspan="8">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="text-align:center;">
+    <button class="btn btn-blue" onclick="window.location.href='broadsheet.html'">📋 View Broadsheet →</button>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const BASE_URL = "https://xgadezouciekpsflwxdd.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_b12h9rtjnQd6LVDqc1_h5g_gakojeC5.";
+  const supabaseClient = supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+  const POINTS = { "D1":1,"D2":2,"C3":3,"C4":4,"C5":5,"C6":6,"P7":7,"P8":8,"F9":9 };
+  let pupilsMap = {};
+
+  function calc(){
+    const e = document.getElementById('eng').value;
+    const m = document.getElementById('math').value;
+    const s = document.getElementById('sci').value;
+    const t = document.getElementById('sst').value;
+    if(!e || !m || !s || !t){ document.getElementById('totalVal').textContent="--"; document.getElementById('divVal').textContent="--"; return {total:null, division:null}; }
+    const total = POINTS[e]+POINTS[m]+POINTS[s]+POINTS[t];
+    let division = "Div U";
+    if(e==="F9"||m==="F9"||s==="F9"||t==="F9") division="Div U";
+    else if(total<=12) division="Div 1";
+    else if(total<=23) division="Div 2";
+    else if(total<=29) division="Div 3";
+    else if(total<=34) division="Div 4";
+    document.getElementById('totalVal').textContent = total;
+    document.getElementById('divVal').textContent = division;
+    document.getElementById('divBox').className = division==="Div 1" ? "div1" : "";
+    return {total, division};
+  }
+
+  async function loadPupils(){
+    const { data } = await supabaseClient.from('pupils').select('*').order('name');
+    if(!data) return;
+    pupilsMap = {};
+    data.forEach(p => pupilsMap[p.id]=p);
+    const saved = localStorage.getItem("selectedSchool");
+    let filtered = data;
+    if(saved && saved!=="Combined") filtered = data.filter(p=>p.school===saved);
+    document.getElementById('pupilSelect').innerHTML = '<option value="">🔍 Select Pupil...</option>' + filtered.map(p=>`<option value="${p.id}">${p.name} - ${p.school} - ${p.index_number||""}</option>`).join('');
+  }
+
+  function onPupilChange(){
+    const id = document.getElementById('pupilSelect').value;
+    if(!id){ document.getElementById('pupilInfo').textContent=""; return; }
+    const p = pupilsMap[id];
+    document.getElementById('pupilInfo').textContent = `👤 ${p.name} | ${p.gender||""} | ${p.school} | ${p.stream||""} | Index: ${p.index_number||""}`;
+    // Load existing result if any
+    loadExisting(id);
+  }
+  async function loadExisting(pupilId){
+    const { data } = await supabaseClient.from('results').select('*').eq('pupil_id',pupilId).maybeSingle();
+    if(data){
+      document.getElementById('eng').value=data.eng_agg||"";
+      document.getElementById('math').value=data.math_agg||"";
+      document.getElementById('sci').value=data.sci_agg||"";
+      document.getElementById('sst').value=data.sst_agg||"";
+      calc();
+      document.getElementById('msg').textContent="ℹ️ This pupil already has results - saving will update them."; document.getElementById('msg').style.color="#e67e00";
+    } else {
+      document.getElementById('eng').value=""; document.getElementById('math').value=""; document.getElementById('sci').value=""; document.getElementById('sst').value=""; calc();
+    }
+  }
+
+  async function saveResult(){
+    const pupilId = document.getElementById('pupilSelect').value;
+    const eng = document.getElementById('eng').value;
+    const math = document.getElementById('math').value;
+    const sci = document.getElementById('sci').value;
+    const sst = document.getElementById('sst').value;
+    const msg = document.getElementById('msg');
+    if(!pupilId){ msg.textContent="⚠️ Please select a pupil first"; msg.style.color="red"; return; }
+    if(!eng||!math||!sci||!sst){ msg.textContent="⚠️ Please select all 4 subjects"; msg.style.color="red"; return; }
+    const {total, division} = calc();
+    msg.textContent="Saving..."; msg.style.color="#1a4d8f";
+    // Check if exists - update, else insert
+    const { data: existing } = await supabaseClient.from('results').select('id').eq('pupil_id', pupilId).maybeSingle();
+    let res;
+    if(existing) res = await supabaseClient.from('results').update({eng_agg:eng, math_agg:math, sci_agg:sci, sst_agg:sst, total, division}).eq('pupil_id', pupilId);
+    else res = await supabaseClient.from('results').insert([{pupil_id: parseInt(pupilId), eng_agg:eng, math_agg:math, sci_agg:sci, sst_agg:sst, total, division}]);
+    if(res.error){ msg.textContent="❌ "+res.error.message; msg.style.color="red"; }
+    else { msg.textContent="✅ Result saved! Total "+total+" - "+division; msg.style.color="green"; loadResults(); }
+  }
+
+  async function loadResults(){
+    const { data: results } = await supabaseClient.from('results').select('*').order('total', {ascending:true});
+    const { data: pupils } = await supabaseClient.from('pupils').select('*');
+    if(!results || !pupils) return;
+    const pmap = {}; pupils.forEach(p=>pmap[p.id]=p);
+    const q = document.getElementById('searchBox').value.toLowerCase();
+    const f = document.getElementById('filterSchool').value;
+    let rows = results.filter(r=>{
+      const p = pmap[r.pupil_id]; if(!p) return false;
+      const matchQ = p.name.toLowerCase().includes(q);
+      const matchF = f==="All" || p.school===f;
+      return matchQ && matchF;
+    });
+    document.getElementById('countText').textContent = `Showing ${rows.length} results`;
+    if(rows.length===0){ document.getElementById('resultList').innerHTML="<tr><td colspan='8'>No results yet. Enter above.</td></tr>"; return; }
+    document.getElementById('resultList').innerHTML = rows.map(r=>{
+      const p = pmap[r.pupil_id];
+      return `<tr><td><b>${p.name}</b><br><small>${p.school} - ${p.index_number||""}</small></td>
+      <td><span class="agg agg-${r.eng_agg}">${r.eng_agg}</span></td>
+      <td><span class="agg agg-${r.math_agg}">${r.math_agg}</span></td>
+      <td><span class="agg agg-${r.sci_agg}">${r.sci_agg}</span></td>
+      <td><span class="agg agg-${r.sst_agg}">${r.sst_agg}</span></td>
+      <td><b>${r.total}</b></td><td><b>${r.division}</b></td>
+      <td><button class="btn-del" onclick="deleteResult(${r.id})">🗑️ Delete</button></td></tr>`;
+    }).join('');
+  }
+
+  async function deleteResult(id){
+    if(!confirm("Delete this result?")) return;
+    await supabaseClient.from('results').delete().eq('id',id);
+    loadResults();
+  }
+
+  loadPupils(); loadResults();
+  const savedFilter = localStorage.getItem("selectedSchool");
+  if(savedFilter) document.getElementById('filterSchool').value = savedFilter;
+</script>
+</body>
+</html>
