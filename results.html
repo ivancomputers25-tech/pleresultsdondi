@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Results - DONDI PRIMARY SCHOOL</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
+  body{background:#f0f3f8;color:#222;padding-bottom:30px}
+  .header{background:linear-gradient(135deg,#1a4d8f,#0d2f5e);color:#fff;text-align:center;padding:16px 12px;position:sticky;top:0;z-index:10}
+  .header-top{display:flex;align-items:center;justify-content:center;gap:12px}
+  .badge-logo{width:56px;height:56px;background:#ffcc00;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;border:3px solid #fff;flex-shrink:0}
+  .header h1{font-size:20px;line-height:1.2;text-align:left}
+  .header p{font-size:12px;opacity:.9;margin-top:3px}
+  .centre{background:rgba(255,255,255,.15);display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;margin-top:8px}
+  .back{display:inline-block;margin:12px 0 0 12px;background:#fff;padding:8px 14px;border-radius:20px;text-decoration:none;color:#1a4d8f;font-weight:bold;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 12px}
+  .card{background:#fff;border-radius:14px;padding:16px;margin-top:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .card h2{font-size:17px;color:#1a4d8f;margin-bottom:6px}
+  .school-title{text-align:center;margin:14px 0 4px}
+  .school-title h2{font-size:20px;color:#1a4d8f;text-transform:uppercase}
+  .school-title p{font-size:13px;color:#555}
+  .year-banner{text-align:center;background:#eef4ff;border:1.5px solid #1a4d8f;border-radius:10px;padding:10px;margin-top:10px}
+  .year-banner b{color:#1a4d8f;font-size:16px}
+  .controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+  .controls select,.controls input{padding:12px;border-radius:10px;border:1px solid #ccc;font-size:14px;width:100%;background:#f9fbff}
+  .controls label{font-size:12px;font-weight:bold;color:#1a4d8f;display:block;margin-bottom:4px}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .btn{flex:1;min-width:140px;padding:13px;border:none;border-radius:10px;font-size:15px;font-weight:bold;cursor:pointer}
+  .btn-save{background:#0e8a4d;color:#fff}
+  .btn-print{background:#1a4d8f;color:#fff}
+  .btn-year{background:#ffcc00;color:#1a4d8f}
+  .btn-blue{background:#1a4d8f;color:#fff}
+  #msg{text-align:center;font-size:13px;margin-top:10px;min-height:18px}
+  #countText{font-size:13px;color:#666;margin-top:10px}
+  .table-wrap{overflow-x:auto;margin-top:12px}
+  table{width:100%;border-collapse:collapse;min-width:850px}
+  th{background:#1a4d8f;color:#fff;padding:10px 8px;font-size:13px;text-align:center}
+  td{padding:8px;border-bottom:1px solid #eee;font-size:14px;text-align:center;vertical-align:middle}
+  tr:nth-child(even) td{background:#f8faff}
+  td.pupil-cell{text-align:left}
+  .thumb{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #1a4d8f;background:#eee}
+  .thumb-fallback{width:40px;height:40px;border-radius:50%;background:#dfe7f5;display:flex;align-items:center;justify-content:center;font-size:18px;border:2px solid #1a4d8f}
+  .pupil-flex{display:flex;align-items:center;gap:10px}
+  select.mini{padding:8px 6px;border-radius:8px;border:1px solid #ccc;font-size:13px;width:82px;background:#fff}
+  .total-cell{font-weight:bold;font-size:15px}
+  .div-cell{font-weight:bold}
+  .div-1{color:#0e5a2d;background:#d4edda;padding:4px 8px;border-radius:6px}
+  .div-2{color:#0e5a2d;background:#d4edda;padding:4px 8px;border-radius:6px}
+  .div-3{color:#856404;background:#fff3cd;padding:4px 8px;border-radius:6px}
+  .div-4{color:#7a4a00;background:#ffe0b2;padding:4px 8px;border-radius:6px}
+  .div-U{color:#721c24;background:#f8d7da;padding:4px 8px;border-radius:6px}
+  .legend{font-size:12px;color:#666;line-height:1.6;margin-top:12px;background:#f9f9f9;padding:10px;border-radius:8px}
+  .print-only{display:none}
+  @media(max-width:700px){.controls{grid-template-columns:1fr}.header h1{font-size:17px}}
+  @media print{
+    body{background:#fff;padding:0}
+    .header,.back,.controls,.btn-row,.legend,.no-print{display:none !important}
+    .print-only{display:block;text-align:center;margin-bottom:10px}
+    .print-only h1{font-size:20px;color:#000}
+    .print-only p{font-size:12px}
+    .card{box-shadow:none;border:none;padding:0}
+    .wrap{max-width:100%}
+    table{min-width:100%}
+    th{background:#000 !important;color:#fff !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    select.mini{border:none;appearance:none;-webkit-appearance:none;font-weight:bold}
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-top"><div class="badge-logo">🎓</div><div><h1>DONDI PRIMARY SCHOOL</h1><p>P.O BOX 69, YUMBE - UGANDA</p><p>STAR NURSERY & PRIMARY SCHOOL - DONDI | DONDI PRIMARY SCHOOL</p></div></div>
+  <div class="centre">🏫 Centre No: 000364 &nbsp;|&nbsp; Year: <span id="headerYear">2026</span></div>
+</div>
+<a class="back" href="index.html">⬅️ Back to Home</a>
+
+<div class="wrap">
+  <div class="card">
+    <h2>📋 All Pupils Results - PLE Aggregates</h2>
+
+    <div class="school-title" id="schoolTitle">
+      <h2 id="schoolName">COMBINED RESULTS - BOTH SCHOOLS</h2>
+      <p id="schoolSub">Star Nursery & Primary School - Dondi | Dondi Primary School | PLE 2026</p>
+    </div>
+
+    <div class="year-banner" id="yearBanner">
+      📅 Showing Results For: <b id="yearBannerText">PLE 2026</b> &nbsp;|&nbsp; <span style="font-size:12px;color:#555;">Old years are saved, not deleted. Change year below to view them.</span>
+    </div>
+
+    <div class="print-only" id="printHeader">
+      <h1 id="printSchoolName">COMBINED RESULTS</h1>
+      <p id="printSub">P.O BOX 69, YUMBE - UGANDA | Centre No: 000364 | PLE Results Broadsheet</p>
+    </div>
+
+    <div class="controls">
+      <div><label>📅 SELECT YEAR</label>
+        <select id="filterYear" onchange="onYearChange()">
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026" selected>2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029</option>
+          <option value="2030">2030</option>
+        </select>
+      </div>
+      <div><label>🏫 SELECT SCHOOL</label>
+        <select id="filterSchool" onchange="renderTable()">
+          <option value="All">🌍 Combined - Both Schools</option>
+          <option value="School A">⭐ STAR NURSERY & PRIMARY SCHOOL - DONDI Only</option>
+          <option value="School B">📘 DONDI PRIMARY SCHOOL Only</option>
+        </select>
+      </div>
+      <div><label>🔍 SEARCH</label>
+        <input id="searchBox" placeholder="Search pupil by name / index..." oninput="renderTable()">
+      </div>
+    </div>
+
+    <div class="controls" style="grid-template-columns:1fr;">
+      <div><label>🏆 FILTER BY DIVISION</label>
+        <select id="filterDiv" onchange="renderTable()">
+          <option value="All">All Divisions</option>
+          <option value="Div 1">Div 1 Only</option>
+          <option value="Div 2">Div 2 Only</option>
+          <option value="Div 3">Div 3 Only</option>
+          <option value="Div 4">Div 4 Only</option>
+          <option value="Div U">Div U Only</option>
+          <option value="No Result">No Result Yet (Empty)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-save" onclick="saveAllResults()">💾 Update All / Save to Supabase</button>
+      <button class="btn btn-print" onclick="window.print()">🖨️ Print Results</button>
+      <button class="btn btn-year" onclick="startNewYear()">📅 Start New Year (Keep Old Results)</button>
+    </div>
+    <div id="msg"></div>
+    <div id="countText">Loading...</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>📸</th><th>👤 Pupil</th><th>🏫 School</th><th>📖 Eng</th><th>🔢 Math</th><th>🔬 Sci</th><th>🌍 SST</th><th>📊 Total</th><th>🏆 Div</th></tr></thead>
+        <tbody id="resultList"><tr><td colspan="9">Loading pupils...</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="legend">
+      <b>How Year Works:</b> D1 = 1, D2 = 2, C3 = 3, C4 = 4, C5 = 5, C6 = 6, P7 = 7, P8 = 8, F9 = 9. Total = sum of 4 subjects. Div 1 = 4-12, Div 2 = 13-23, Div 3 = 24-29, Div 4 = 30-34, Div U = Any F9 or 35+.<br>
+      <b>Save:</b> When you click Update All, results are saved under the year selected above. <b>Start New Year:</b> Does NOT delete old results. It just moves you to next year with empty fields. To see old results, change Year back to 2025 / 2026.
+    </div>
+  </div>
+
+  <div class="card no-print" style="text-align:center;">
+    <button class="btn btn-blue" onclick="window.location.href='marks.html'">✏️ Go to Marks Entry →</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const BASE_URL = "https://xgadezouciekpsflwxdd.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnYWRlem91Y2lla3BzZmx3eGRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM5NTQ0NDksImV4cCI6MjEwOTUzMDQ0OX0.UX6xUYRM_S3xjpf6IfoHko6T7Poz5YKaffX7EE1ldKM";
+const supabaseClient = supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+const POINTS = {"D1":1,"D2":2,"C3":3,"C4":4,"C5":5,"C6":6,"P7":7,"P8":8,"F9":9};
+const AGGS = ["","D1","D2","C3","C4","C5","C6","P7","P8","F9"];
+let allPupils = [];
+let resultsMap = {}; // key = pupil_id + "_" + year
+let currentYear = 2026;
+
+function getCurrentYear(){
+  return parseInt(document.getElementById('filterYear').value);
+}
+function getDiv(e,m,s,t,total){
+  if(!e||!m||!s||!t) return "";
+  if(e==="F9"||m==="F9"||s==="F9"||t==="F9") return "Div U";
+  if(total<=12) return "Div 1";
+  if(total<=23) return "Div 2";
+  if(total<=29) return "Div 3";
+  if(total<=34) return "Div 4";
+  return "Div U";
+}
+function divClass(div){
+  if(div==="Div 1") return "div-1";
+  if(div==="Div 2") return "div-2";
+  if(div==="Div 3") return "div-3";
+  if(div==="Div 4") return "div-4";
+  if(div==="Div U") return "div-U";
+  return "";
+}
+function aggLabel(v){
+  if(!v) return "";
+  return v + " (" + POINTS[v] + ")";
+}
+function makeSelect(pupilId, subject, value){
+  return `<select class="mini" data-pupil="${pupilId}" data-subject="${subject}" onchange="recalcRow(${pupilId})">` + AGGS.map(a=>`<option value="${a}" ${a===value?"selected":""}>${a?aggLabel(a):"-- Select"}</option>`).join('') + `</select>`;
+}
+function recalcRow(pupilId){
+  const e = document.querySelector(`select[data-pupil="${pupilId}"][data-subject="eng"]`).value;
+  const m = document.querySelector(`select[data-pupil="${pupilId}"][data-subject="math"]`).value;
+  const s = document.querySelector(`select[data-pupil="${pupilId}"][data-subject="sci"]`).value;
+  const t = document.querySelector(`select[data-pupil="${pupilId}"][data-subject="sst"]`).value;
+  const totalEl = document.getElementById('total-'+pupilId);
+  const divEl = document.getElementById('div-'+pupilId);
+  if(!e||!m||!s||!t){ totalEl.textContent="--"; divEl.innerHTML=""; divEl.className="div-cell"; return; }
+  const total = POINTS[e]+POINTS[m]+POINTS[s]+POINTS[t];
+  const div = getDiv(e,m,s,t,total);
+  totalEl.textContent = total;
+  divEl.innerHTML = `<span class="${divClass(div)}">${div}</span>`;
+}
+function updateSchoolTitle(){
+  const f = document.getElementById('filterSchool').value;
+  const y = getCurrentYear();
+  let name = "COMBINED RESULTS - BOTH SCHOOLS";
+  let sub = "Star Nursery & Primary School - Dondi | Dondi Primary School | PLE " + y;
+  if(f==="School A"){ name = "STAR NURSERY & PRIMARY SCHOOL - DONDI"; sub = "PLE Results " + y + " | Centre No: 000364 | P.O BOX 69, YUMBE"; }
+  if(f==="School B"){ name = "DONDI PRIMARY SCHOOL"; sub = "PLE Results " + y + " | Centre No: 000364 | P.O BOX 69, YUMBE"; }
+  document.getElementById('schoolName').textContent = name;
+  document.getElementById('schoolSub').textContent = sub;
+  document.getElementById('printSchoolName').textContent = name;
+  document.getElementById('printSub').textContent = "P.O BOX 69, YUMBE - UGANDA | Centre No: 000364 | PLE " + y + " Results Broadsheet";
+  document.getElementById('yearBannerText').textContent = "PLE " + y;
+  document.getElementById('headerYear').textContent = y;
+}
+function onYearChange(){
+  currentYear = getCurrentYear();
+  localStorage.setItem("selectedYear", currentYear);
+  document.getElementById('msg').textContent = "📅 Showing saved results for " + currentYear + " - old years are still saved, not deleted.";
+  document.getElementById('msg').style.color = "#1a4d8f";
+  renderTable();
+}
+function startNewYear(){
+  const cur = getCurrentYear();
+  const next = cur + 1;
+  if(!confirm("Start " + next + "? This will NOT delete " + cur + " results. It will just show you empty fields for " + next + ". You can go back to " + cur + " anytime by changing the Year selector. Continue?")) return;
+  const sel = document.getElementById('filterYear');
+  // Add next year if not in list
+  if(![...sel.options].some(o=>o.value==next)){
+    const opt=document.createElement('option'); opt.value=next; opt.textContent=next; sel.appendChild(opt);
+  }
+  sel.value = next;
+  onYearChange();
+  document.getElementById('msg').textContent = "✅ Now entering results for " + next + ". " + cur + " results are safely saved. Enter new marks and click Update All.";
+  document.getElementById('msg').style.color = "green";
+}
+async function loadAll(){
+  const {data:pupils} = await supabaseClient.from('pupils').select('*').order('name');
+  const {data:results} = await supabaseClient.from('results').select('*');
+  allPupils = pupils || [];
+  resultsMap = {};
+  (results||[]).forEach(r=>{
+    const y = r.year || 2026; // Old results without year = 2026
+    resultsMap[r.pupil_id + "_" + y] = r;
+  });
+  const savedYear = localStorage.getItem("selectedYear");
+  if(savedYear) document.getElementById('filterYear').value = savedYear;
+  const savedSchool = localStorage.getItem("selectedSchool");
+  if(savedSchool) document.getElementById('filterSchool').value = savedSchool;
+  currentYear = getCurrentYear();
+  renderTable();
+}
+function getResultForPupil(pupilId){
+  return resultsMap[pupilId + "_" + getCurrentYear()] || null;
+}
+function renderTable(){
+  updateSchoolTitle();
+  const f = document.getElementById('filterSchool').value;
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  const fd = document.getElementById('filterDiv').value;
+  const y = getCurrentYear();
+  let rows = allPupils.filter(p=>{
+    if(f!=="All" && p.school!==f) return false;
+    if(q && !(p.name||"").toLowerCase().includes(q) && !(p.index_number||"").toLowerCase().includes(q)) return false;
+    const r = getResultForPupil(p.id);
+    const e = r?r.eng_agg:"", m=r?r.math_agg:"", s=r?r.sci_agg:"", t=r?r.sst_agg:"";
+    const total = (e&&m&&s&&t)? POINTS[e]+POINTS[m]+POINTS[s]+POINTS[t] : null;
+    const div = total? getDiv(e,m,s,t,total) : "";
+    if(fd==="No Result" && r) return false;
+    if(fd!=="All" && fd!=="No Result" && div!==fd) return false;
+    return true;
+  });
+  rows.sort((a,b)=>{
+    const ra=getResultForPupil(a.id), rb=getResultForPupil(b.id);
+    const ta=ra?ra.total:999, tb=rb?rb.total:999;
+    return ta-tb;
+  });
+  document.getElementById('countText').textContent = `Showing ${rows.length} pupils | Year: ${y} | ${f==="All"?"Both Schools":f==="School A"?"Star Nursery & Primary School - Dondi":"Dondi Primary School"}`;
+  if(!rows.length){ document.getElementById('resultList').innerHTML="<tr><td colspan='9'>No pupils found for " + y + ". Switch year to see saved results, or enter new results.</td></tr>"; return; }
+  document.getElementById('resultList').innerHTML = rows.map(p=>{
+    const r = getResultForPupil(p.id) || {};
+    const e=r.eng_agg||"", m=r.math_agg||"", s=r.sci_agg||"", t=r.sst_agg||"";
+    const total = (e&&m&&s&&t)? POINTS[e]+POINTS[m]+POINTS[s]+POINTS[t] : "";
+    const div = total? getDiv(e,m,s,t,total) : "";
+    const photo = p.photo_url?`<img src="${p.photo_url}" class="thumb">`:`<div class="thumb-fallback">👤</div>`;
+    const schoolLabel = p.school==="School A" ? "Star" : p.school==="School B" ? "Dondi" : p.school;
+    return `<tr>
+      <td>${photo}</td>
+      <td class="pupil-cell"><div class="pupil-flex"><div><b>${p.name}</b><br><small>${p.index_number||""} | ${p.gender||""} ${p.stream? "| "+p.stream:""}</small></div></div></td>
+      <td><small>${schoolLabel}</small></td>
+      <td>${makeSelect(p.id,'eng',e)}</td>
+      <td>${makeSelect(p.id,'math',m)}</td>
+      <td>${makeSelect(p.id,'sci',s)}</td>
+      <td>${makeSelect(p.id,'sst',t)}</td>
+      <td class="total-cell" id="total-${p.id}">${total===""?"--":total}</td>
+      <td class="div-cell" id="div-${p.id}">${div?`<span class="${divClass(div)}">${div}</span>`:""}</td>
+    </tr>`;
+  }).join('');
+}
+async function saveAllResults(){
+  const msg=document.getElementById('msg');
+  const y = getCurrentYear();
+  msg.textContent="Saving all for " + y + "..."; msg.style.color="#1a4d8f";
+  let saved=0, errors=0;
+  for(let p of allPupils){
+    const eEl=document.querySelector(`select[data-pupil="${p.id}"][data-subject="eng"]`);
+    if(!eEl) continue;
+    const eng=eEl.value;
+    const m=document.querySelector(`select[data-pupil="${p.id}"][data-subject="math"]`).value;
+    const s=document.querySelector(`select[data-pupil="${p.id}"][data-subject="sci"]`).value;
+    const t=document.querySelector(`select[data-pupil="${p.id}"][data-subject="sst"]`).value;
+    if(!eng&&!m&&!s&&!t) continue;
+    if(!eng||!m||!s||!t){ errors++; continue; }
+    const total=POINTS[eng]+POINTS[m]+POINTS[s]+POINTS[t];
+    const division=getDiv(eng,m,s,t,total);
+    const existing=getResultForPupil(p.id);
+    let res;
+    if(existing) res=await supabaseClient.from('results').update({eng_agg:eng,math_agg:m,sci_agg:s,sst_agg:t,total,division,year:y}).eq('id',existing.id);
+    else res=await supabaseClient.from('results').insert([{pupil_id:parseInt(p.id),eng_agg:eng,math_agg:m,sci_agg:s,sst_agg:t,total,division,year:y}]);
+    if(res.error){ console.log(res.error); errors++; } else saved++;
+  }
+  if(errors) msg.textContent=`✅ Saved ${saved} results for ${y}. ⚠️ ${errors} incomplete / error rows skipped. If save fails, run ALTER TABLE results ADD COLUMN year INT in Supabase SQL.`;
+  else msg.textContent=`✅ All ${saved} results saved for ${y} and kept in Supabase! Old years are untouched.`;
+  msg.style.color="green";
+  await loadAll();
+}
+loadAll();
+</script>
+</body>
+</html>
