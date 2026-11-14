@@ -19,6 +19,13 @@
   .wrap { max-width: 1050px; margin: 0 auto; padding: 0 12px; }
   .card { background: white; border-radius: 14px; padding: 16px; margin-top: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
   .card h2 { font-size: 16px; color: #1a4d8f; margin-bottom: 10px; }
+  /* YEAR BAR */
+  .year-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; background: #eef4ff; border: 1.5px solid #1a4d8f; border-radius: 12px; padding: 12px; margin-top: 14px; }
+  .year-bar label { font-size: 12px; font-weight: bold; color: #1a4d8f; display: block; margin-bottom: 4px; }
+  .year-bar select { padding: 11px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px; min-width: 140px; background: #fff; }
+  .year-bar .year-info { flex: 1; min-width: 180px; }
+  .year-bar .year-info b { color: #1a4d8f; font-size: 15px; }
+  .year-bar .year-info span { font-size: 12px; color: #555; display: block; }
   /* KPI */
   .kpi { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
   .kpi div { text-align: center; padding: 14px 6px; border-radius: 12px; color: white; }
@@ -40,6 +47,8 @@
   .menu a.green small { color: #d9ffe9; }
   .menu a.orange { background: #e67e00; color: white; }
   .menu a.orange small { color: #ffe9cc; }
+  .menu a.results-card { background: #1a4d8f; color: white; border: 2px solid #ffcc00; }
+  .menu a.results-card small { color: #dbe6ff; }
   .notice { font-size: 12px; color: #666; line-height: 1.6; }
   .table-wrap { overflow-x: auto; margin-top: 10px; }
   table { width: 100%; border-collapse: collapse; min-width: 500px; }
@@ -49,6 +58,10 @@
   .btn { padding: 12px; border: none; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; width: 100%; }
   .btn-logout { background: #ffe5e5; color: #c00; border: 1px solid #ffcccc; }
   .btn-login { background: #1a4d8f; color: white; }
+  .btn-results { background: #1a4d8f; color: white; }
+  .btn-year { background: #ffcc00; color: #1a4d8f; }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .btn-row .btn { flex: 1; min-width: 160px; }
   @media (max-width: 700px) {
     .header h1 { font-size: 16px; }
     .user-pill { font-size: 11px; padding: 6px 8px; }
@@ -65,7 +78,7 @@
       <div class="badge-logo">🎓</div>
       <div>
         <h1>DONDI PRIMARY SCHOOL</h1>
-        <p>P.O BOX 69, YUMBE - UGANDA • Centre No: U______</p>
+        <p>P.O BOX 69, YUMBE - UGANDA • Centre No: 000364 • Year: <span id="headerYear">2026</span></p>
       </div>
     </div>
     <div class="user-pill" id="userPill">
@@ -85,9 +98,33 @@
     <button class="btn btn-login" style="margin-top:12px;" onclick="window.location.href='login.html'">🔓 Go to Login</button>
   </div>
 
+  <!-- YEAR SELECTOR - SYNCED WITH MARKS + RESULTS -->
+  <div class="year-bar">
+    <div>
+      <label>📅 SELECT YEAR</label>
+      <select id="filterYear" onchange="onYearChange()">
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+        <option value="2026" selected>2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
+        <option value="2029">2029</option>
+        <option value="2030">2030</option>
+      </select>
+    </div>
+    <div class="year-info">
+      <b>Showing Dashboard For: PLE <span id="yearBannerText">2026</span></b>
+      <span>Old years are saved, not deleted. Change year to see old results. Same year is used in Marks + Results pages.</span>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-year" style="width:auto;padding:11px 16px;" onclick="startNewYear()">📅 Start New Year</button>
+      <button class="btn btn-results" style="width:auto;padding:11px 16px;" onclick="window.location.href='results.html'">📋 View Results →</button>
+    </div>
+  </div>
+
   <!-- KPI -->
   <div class="card">
-    <h2>📊 Dashboard - <span id="welcomeText">Welcome</span></h2>
+    <h2>📊 Dashboard - <span id="welcomeText">Welcome</span> - PLE <span id="kpiYear">2026</span></h2>
     <div class="kpi">
       <div class="blue"><b id="kTotal">--</b><span>👨‍🎓 Total Pupils</span></div>
       <div class="green"><b id="kResults">--</b><span>📋 Results Entered</span></div>
@@ -95,6 +132,9 @@
       <div class="purple"><b id="kDiv1">--</b><span>🏆 Division 1</span></div>
     </div>
     <p class="notice" id="permNotice" style="margin-top:10px;"></p>
+    <div class="btn-row">
+      <button class="btn btn-results" onclick="window.location.href='results.html'">📋 View All Results / Broadsheet →</button>
+    </div>
   </div>
 
   <!-- MENU - SHOWS / HIDES BY ROLE -->
@@ -105,8 +145,12 @@
     <a href="marks.html" data-role="Headteacher,Teacher" id="card-marks" class="green">
       <div class="icon">✏️</div><b>Marks Entry</b><small id="desc-marks">Enter D1 - F9</small>
     </a>
-    <a href="broadsheet.html" data-role="Headteacher,Teacher,Viewer" id="card-broadsheet">
-      <div class="icon">📋</div><b>Broadsheet</b><small>All Results & Ranking</small>
+    <!-- NEW BUTTON - LINKS TO RESULTS.HTML -->
+    <a href="results.html" data-role="Headteacher,Teacher,Viewer" id="card-results" class="results-card">
+      <div class="icon">📋</div><b>All Results</b><small>View / Print / Edit All Pupils</small>
+    </a>
+    <a href="results.html" data-role="Headteacher,Teacher,Viewer" id="card-broadsheet">
+      <div class="icon">📊</div><b>Broadsheet</b><small>All Results & Ranking</small>
     </a>
     <a href="report-card.html" data-role="Headteacher,Teacher,Viewer" id="card-report">
       <div class="icon">🎓</div><b>Report Card</b><small>Print / PDF Slip</small>
@@ -127,8 +171,11 @@
 
   <!-- TOP PERFORMERS - HEADTEACHER & TEACHER ONLY FULL, VIEWER TOP 5 -->
   <div class="card" id="topCard">
-    <h2>🥇 Top Performers - <span id="topTitle">Your School</span></h2>
+    <h2>🥇 Top Performers - <span id="topTitle">Your School</span> - PLE <span id="topYear">2026</span></h2>
     <div class="table-wrap"><table><thead><tr><th>🏅 Pos</th><th>👤 Name</th><th>🏫 School</th><th>📊 Total</th><th>🏆 Division</th></tr></thead><tbody id="topList"><tr><td colspan="5">Loading...</td></tr></tbody></table></div>
+    <div style="text-align:center;margin-top:12px;">
+      <button class="btn btn-results" style="width:auto;padding:11px 22px;" onclick="window.location.href='results.html'">📋 See Full Results List →</button>
+    </div>
   </div>
 
   <div class="card" style="text-align:center;">
@@ -154,6 +201,35 @@
   document.getElementById('welcomeText').textContent = "Welcome, " + (user.full_name || user.username) + " (" + user.role + ")";
   document.getElementById('topTitle').textContent = user.school || "Combined";
 
+  // ---- YEAR - SYNCED WITH MARKS + RESULTS ----
+  function getYear(){ return parseInt(document.getElementById('filterYear').value); }
+  function updateYearUI(){
+    const y = getYear();
+    document.getElementById('headerYear').textContent = y;
+    document.getElementById('yearBannerText').textContent = y;
+    document.getElementById('kpiYear').textContent = y;
+    document.getElementById('topYear').textContent = y;
+    localStorage.setItem("selectedYear", y);
+  }
+  function onYearChange(){
+    updateYearUI();
+    loadDashboard();
+  }
+  function startNewYear(){
+    const cur = getYear();
+    const next = cur + 1;
+    if(!confirm("Start " + next + "? This will NOT delete " + cur + " results. It will just show you empty dashboard for " + next + ". You can go back to " + cur + " anytime.")) return;
+    const sel = document.getElementById('filterYear');
+    if(![...sel.options].some(o=>o.value==next)){
+      const opt=document.createElement('option'); opt.value=next; opt.textContent=next; sel.appendChild(opt);
+    }
+    sel.value = next;
+    onYearChange();
+  }
+  const savedYear = localStorage.getItem("selectedYear");
+  if(savedYear) document.getElementById('filterYear').value = savedYear;
+  updateYearUI();
+
   // Permission messages
   const NOTICES = {
     "Headteacher": "👑 <b>Headteacher Access:</b> You can see ALL pages — Pupils, Marks, Broadsheet, Report Cards, Analysis, <b>Settings + Save Year</b>. You can add, edit, delete.",
@@ -167,14 +243,11 @@
     const allowed = (a.getAttribute('data-role')||"").split(",");
     const isAllowed = allowed.includes(user.role);
     if(!isAllowed){
-      // For Viewer, show Marks & Settings as locked, not hidden - so they understand
       a.classList.add('disabled');
       a.innerHTML += '<span class="locked">🔒</span>';
-      // Change description to locked
       const small = a.querySelector('small');
       if(small) small.textContent = "🔒 Locked for " + user.role;
     } else {
-      // Update descriptions by role
       if(a.id==="card-pupils" && user.role==="Viewer") document.getElementById('desc-pupils').textContent = "View Only - No Add";
       if(a.id==="card-marks" && user.role==="Teacher") document.getElementById('desc-marks').textContent = "Enter D1 - F9 (Your School)";
     }
@@ -185,14 +258,23 @@
     document.getElementById('notLogged').style.display="block";
   }
 
-  // Load stats filtered by user's school
+  // Load stats filtered by user's school AND selected year
   async function loadDashboard(){
+    const y = getYear();
     const { data: pupils } = await supabaseClient.from('pupils').select('*');
-    const { data: results } = await supabaseClient.from('results').select('*');
-    if(!pupils || !results) return;
+    let { data: results } = await supabaseClient.from('results').select('*').eq('year', y);
+    if(!results) results = [];
+    // For 2026 also include old records with NULL year (before year column)
+    if(y===2026){
+      const {data: old} = await supabaseClient.from('results').select('*').is('year', null);
+      if(old){
+        const ids = new Set(results.map(r=>r.pupil_id));
+        old.forEach(r=>{ if(!ids.has(r.pupil_id)) results.push(r); });
+      }
+    }
+    if(!pupils) return;
     const pmap = {}; pupils.forEach(p=>pmap[p.id]=p);
     let rows = results.map(r=>({...r, pupil: pmap[r.pupil_id]})).filter(r=>r.pupil);
-    // Filter by school for Teacher
     if(user.school && user.school!=="Combined") rows = rows.filter(r=>r.pupil.school===user.school);
     let pupilsFiltered = pupils;
     if(user.school && user.school!=="Combined") pupilsFiltered = pupils.filter(p=>p.school===user.school);
@@ -204,10 +286,9 @@
     document.getElementById('kResults').textContent = entered + "/" + total;
     document.getElementById('kPass').textContent = entered ? Math.round(pass/entered*100)+"%" : "0%";
     document.getElementById('kDiv1').textContent = d1;
-    // Top performers - Viewer sees only top 5
     const limit = user.role==="Viewer" ? 5 : 10;
     const sorted = [...rows].sort((a,b)=>a.total-b.total).slice(0, limit);
-    if(sorted.length===0) document.getElementById('topList').innerHTML="<tr><td colspan='5'>No results yet.</td></tr>";
+    if(sorted.length===0) document.getElementById('topList').innerHTML=`<tr><td colspan='5'>No results yet for ${y}. <a href='results.html'>Enter / View Results →</a></td></tr>`;
     else document.getElementById('topList').innerHTML = sorted.map((r,i)=>`<tr><td><b>${i+1}</b> ${i===0?"🥇":i===1?"🥈":i===2?"🥉":""}</td><td><b>${r.pupil.name}</b></td><td>${r.pupil.school}</td><td><b>${r.total}</b></td><td><b>${r.division}</b></td></tr>`).join('');
   }
   loadDashboard();
