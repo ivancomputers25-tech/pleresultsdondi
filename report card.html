@@ -5,341 +5,250 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Report Card - DONDI PRIMARY SCHOOL</title>
 <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-  body { background: #f0f3f8; color: #222; padding-bottom: 30px; }
-  .topbar { background: linear-gradient(135deg,#1a4d8f,#0d2f5e); color: white; text-align: center; padding: 14px 12px; position: sticky; top: 0; z-index: 10; }
-  .topbar h1 { font-size: 22px; }
-  .topbar p { font-size: 16px; opacity: 0.9; }
-  .back { display: inline-block; margin: 12px 0 0 12px; background: white; padding: 8px 14px; border-radius: 20px; text-decoration: none; color: #1a4d8f; font-weight: bold; font-size: 13px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-  .wrap { max-width: 950px; margin: 0 auto; padding: 0 12px; }
-  .card { background: white; border-radius: 14px; padding: 16px; margin-top: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-  .card h2 { font-size: 16px; color: #1a4d8f; margin-bottom: 12px; }
-  .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .controls select, .controls input { outline: none; padding: 12px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px; width: 100%; background: #f9fbff; }
-  .btn { padding: 13px; border: none; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; width: 100%; }
-  .btn-print { background: #1a4d8f; color: white; }
-  .btn-pdf { background: #c00; color: white; }
-  .btn-save { background: #0e8a4d; color: white; }
-  .btn-photo { background: #ffcc00; color: #000; }
-  .btn-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 12px; }
-  .photo-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-
-  /* ===== A4 REPORT CARD WITH WATERMARK ===== */
-  .a4-wrap { display: flex; justify-content: center; margin-top: 14px; }
-  .a4 {
-    width: 100%; max-width: 780px; background: white; padding: 22px;
-    border: 4px double #1a4d8f; position: relative; min-height: 900px;
-    /* Transparent watermark - faint logo in centre */
-    background-image: url('logo.png');
-    background-repeat: no-repeat;
-    background-position: center 45%;
-    background-size: 380px 380px;
-    /* Make it faint - overlay white */
-    background-blend-mode: lighten;
-  }
-  /* Extra faint overlay to make watermark transparent */
-  .a4::after {
-    content: ""; position: absolute; inset: 0;
-    background: rgba(255,255,255,0.82); pointer-events: none; z-index: 0;
-  }
-  .bg-img {
-    position: absolute;
-    top: 5%;
-    left: 3%;
-    width: 100%;
-    height: 500%;
-    object-fit: contain;
-    z-index: -1;
-    opacity: 0.18;
-  }
-  .a4 > * { position: relative; z-index: 1; }
-  .a4::before { content: ""; position: absolute; inset: 8px; border: 1.5px solid #1a4d8f; pointer-events: none; z-index: 2;}
-  .a4-header { text-align: center; border-bottom: 2px solid #1a4d8f; padding-bottom: 10px; position: relative; }
-  .a4-logo-img { width: 72px; height: 72px; object-fit: cover; border-radius: 50%; border: 3px solid #1a4d8f; display: block; margin: 0 auto 8px; background: white; }
-  .a4-logo-fallback { width: 72px; height: 72px; background: #ffcc00; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 8px; border: 3px solid #1a4d8f; }
-  .a4-header h1 { font-size: 26px; color: #1a4d8f; letter-spacing: 1px; }
-  .a4-header p { font-size: 20px; margin-top: 2px; font-weight: 500;}
-  .a4-title { text-align: center; margin: 14px 0; background-color:#1a4d8f; color: #fff; padding: 4px; }
-  .a4-title h2 { font-size: 17px; text-decoration: underline; line-height: 1.4; }
-  .a4-title p { font-size: 12px; color: #666; margin-top: 4px; }
-  .pupil-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; }
-  .pupil-info { font-size: 18px; line-height: 44px; }
-  .photo-box { width: 115px; height: 140px; border: 1.5px solid #333; text-align: center; font-size: 11px; color: #777; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; background: #f9f9f9; overflow: hidden; }
-  .photo-box img { width: 100%; height: 100%; object-fit: cover; }
-  table.report-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-  table.report-table th, table.report-table td { border: 1px solid #333; padding: 9px; text-align: center; font-size: 16px; }
-  table.report-table th { background: #1a4d8f; color: white; }
-  table.report-table td:first-child { text-align: left; }
-  .summary { display: flex; gap: 12px; margin-top: 14px; }
-  .summary div { flex: 1; border: 1.5px solid #333; padding: 11px; text-align: center; font-size: 15px; font-weight: bold; }
-  .comments { margin-top: 16px; font-size: 13px; line-height: 20px; }
-  .comment-box { border: 1px solid #999; height: 52px; margin: 5px 0 12px; padding: 6px; font-size: 13px; background: rgba(255,255,255,0.7); }
-  .sign-area { display: flex; justify-content: space-between; gap: 12px; margin-top: 18px; }
-  .sign-box { flex: 1; text-align: center; }
-  .sign-line { border-top: 1.5px solid #000; padding-top: 5px; font-size: 13px; margin-top: 38px; }
-  .stamp-box { width: 130px; height: 110px; border: 2px dashed #999; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11px; color: #888; }
-  .footer-red { text-align: center; color: red; font-weight: bold; font-size: 13px; margin-top: 18px; }
-  .footer-small { text-align: center; font-size: 11px; color: #888; margin-top: 4px; }
-
-  @media (max-width: 600px) {
-    .topbar h1 { font-size: 16px; }
-    .controls { grid-template-columns: 1fr; }
-    .btn-row, .photo-controls { grid-template-columns: 1fr; }
-    .a4 { padding: 14px; background-size: 260px 260px; }
-    .a4-header h1 { font-size: 20px; }
-    .pupil-row { flex-direction: column-reverse; }
-    .photo-box { width: 90px; height: 110px; }
-    .sign-area { flex-direction: column; }
-    .stamp-box { width: 100%; height: 80px; }
-  }
-  @media print {
-    body { background: white; padding: 0; }
-    .topbar, .back, .card.controls-card, .btn-row, .photo-controls, .no-print { display: none !important; }
-    .wrap { max-width: 100%; padding: 0; }
-    .a4-wrap { margin: 0; }
-    .a4 { max-width: 100%; border: 4px double #1a4d8f; min-height: auto; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    @page { size: A4; margin: 10mm; }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
+  body{background:#f0f3f8;color:#222;padding-bottom:30px}
+  .topbar{background:linear-gradient(135deg,#1a4d8f,#0d2f5e);color:#fff;text-align:center;padding:14px 12px;position:sticky;top:0;z-index:10}
+  .topbar h1{font-size:22px}.topbar p{font-size:14px;opacity:.9}
+  .back{display:inline-block;margin:12px 0 0 12px;background:#fff;padding:8px 14px;border-radius:20px;text-decoration:none;color:#1a4d8f;font-weight:bold;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+  .wrap{max-width:950px;margin:0 auto;padding:0 12px}
+  .card{background:#fff;border-radius:14px;padding:16px;margin-top:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .card h2{font-size:16px;color:#1a4d8f;margin-bottom:12px}
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .controls select,.controls input{padding:12px;border-radius:10px;border:1px solid #ccc;font-size:14px;width:100%;background:#f9fbff;outline:none}
+  .btn{padding:13px;border:none;border-radius:10px;font-size:15px;font-weight:bold;cursor:pointer;width:100%}
+  .btn-print{background:#1a4d8f;color:#fff}.btn-pdf{background:#c00;color:#fff}.btn-save{background:#0e8a4d;color:#fff}.btn-photo{background:#ffcc00;color:#000}
+  .btn-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+  .photo-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  /* A4 */
+  .a4-wrap{display:flex;flex-direction:column;gap:20px;align-items:center;margin-top:14px}
+  .a4{width:100%;max-width:780px;background:#fff;padding:22px;border:4px double #1a4d8f;position:relative;min-height:900px;background-image:url('logo.png');background-repeat:no-repeat;background-position:center 45%;background-size:380px 380px}
+  .a4::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.82);pointer-events:none;z-index:0}
+  .a4>*{position:relative;z-index:1}
+  .a4::before{content:"";position:absolute;inset:8px;border:1.5px solid #1a4d8f;pointer-events:none;z-index:2}
+  .a4-header{text-align:center;border-bottom:2px solid #1a4d8f;padding-bottom:10px}
+  .a4-logo-img{width:72px;height:72px;object-fit:cover;border-radius:50%;border:3px solid #1a4d8f;display:block;margin:0 auto 8px;background:#fff}
+  .a4-logo-fallback{width:72px;height:72px;background:#ffcc00;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 8px;border:3px solid #1a4d8f}
+  .a4-header h1{font-size:26px;color:#1a4d8f}.a4-header p{font-size:16px;margin-top:2px}
+  .a4-title{text-align:center;margin:14px 0;background:#1a4d8f;color:#fff;padding:6px}
+  .a4-title h2{font-size:17px;text-decoration:underline}
+  .pupil-row{display:flex;justify-content:space-between;gap:12px;margin-top:12px}
+  .pupil-info{font-size:18px;line-height:42px}
+  .photo-box{width:115px;height:140px;border:1.5px solid #333;text-align:center;font-size:11px;color:#777;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;background:#f9f9f9;overflow:hidden}
+  .photo-box img{width:100%;height:100%;object-fit:cover}
+  table.report-table{width:100%;border-collapse:collapse;margin-top:16px}
+  table.report-table th,table.report-table td{border:1px solid #333;padding:9px;text-align:center;font-size:16px}
+  table.report-table th{background:#1a4d8f;color:#fff}
+  table.report-table td:first-child{text-align:left}
+  .summary{display:flex;gap:12px;margin-top:14px}
+  .summary div{flex:1;border:1.5px solid #333;padding:11px;text-align:center;font-size:15px;font-weight:bold}
+  .comments{margin-top:16px;font-size:13px;line-height:20px}
+  .comment-box{border:1px solid #999;min-height:52px;margin:5px 0 12px;padding:6px;font-size:13px;background:rgba(255,255,255,.7)}
+  .sign-area{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+  .sign-box{flex:1;text-align:center}.sign-line{border-top:1.5px solid #000;padding-top:5px;font-size:13px;margin-top:38px}
+  .stamp-box{width:130px;height:110px;border:2px dashed #999;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;color:#888}
+  .footer-red{text-align:center;color:red;font-weight:bold;font-size:13px;margin-top:18px}
+  .footer-small{text-align:center;font-size:11px;color:#888;margin-top:4px}
+  @media(max-width:600px){.controls{grid-template-columns:1fr}.btn-row,.photo-controls{grid-template-columns:1fr}.a4{padding:14px}.pupil-row{flex-direction:column-reverse}.photo-box{width:90px;height:110px}.sign-area{flex-direction:column}.stamp-box{width:100%;height:80px}}
+  @media print{
+    body{background:#fff;padding:0}.topbar,.back,.card.controls-card,.btn-row,.photo-controls,.no-print{display:none!important}
+    .wrap{max-width:100%;padding:0}.a4-wrap{margin:0}.a4{max-width:100%;min-height:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact;page-break-after:always}
+    @page{size:A4;margin:10mm}
   }
 </style>
 </head>
 <body>
-
-<div class="topbar">
-  <h1>🎓 DONDI PRIMARY SCHOOL</h1>
-  <p>P.O BOX 69, YUMBE - UGANDA | Centre No: 000364 | Year: 2026</p>
-</div>
-
+<div class="topbar"><h1>🎓 DONDI PRIMARY SCHOOL</h1><p>P.O BOX 69, YUMBE - UGANDA | Centre No: 000364 | Year: 2026</p></div>
 <a class="back" href="index.html">⬅️ Back to Home</a>
-
 <div class="wrap">
-
   <div class="card controls-card">
-    <h2>🎓 Select Pupil For Report Card</h2>
+    <h2>🎓 Report Cards</h2>
     <div class="controls">
-      <select id="pupilSelect" onchange="loadReport()"><option value="">🔍 Select Pupil...</option></select>
-      <select id="filterSchool" onchange="loadPupilList()">
+      <!-- NEW: PRINT MODE -->
+      <select id="printMode" onchange="onModeChange()">
+        <option value="individual">👤 Individual - Print One Pupil</option>
+        <option value="all">🖨️ Print All - All Report Cards</option>
+      </select>
+      <select id="filterSchool" onchange="loadPupilList(); renderCurrent();">
         <option value="Combined">🌍 Combined - Both Schools</option>
         <option value="School A">⭐ STAR NURSERY AND PRIMARY SCHOOL - DONDI</option>
-        <option value="School B">📘 DODNI PRIMARY SCHOOL</option>
+        <option value="School B">📘 DONDI PRIMARY SCHOOL</option>
       </select>
     </div>
-    <div style="margin-top:10px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-      <input id="yearInput" type="number" value="2026" placeholder="Year e.g. 2026" style=" outline: none; padding: 12px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px; width: 100%; background: #f9fbff;">
-      <input id="photoUrl" placeholder="🖼️ Or Paste Photo URL" oninput="updatePhotoUrl()"  style="outline: none; padding: 12px; border-radius: 10px; border: 1px solid #ccc; font-size: 14px; width: 100%; background: #f9fbff;">
+
+    <!-- INDIVIDUAL MODE ONLY -->
+    <div id="individualBox" style="margin-top:10px">
+      <div class="controls">
+        <select id="pupilSelect" onchange="loadReport()"><option value="">🔍 Select Pupil...</option></select>
+        <input id="yearInput" type="number" value="2026" placeholder="Year e.g. 2026">
+      </div>
+      <input id="photoUrl" placeholder="🖼️ Or Paste Photo URL" oninput="updatePhotoUrl()" style="margin-top:10px;padding:12px;border-radius:10px;border:1px solid #ccc;font-size:14px;width:100%;background:#f9fbff;">
+      <div class="photo-controls">
+        <label class="btn btn-photo" style="display:flex;align-items:center;justify-content:center;cursor:pointer;">📸 Choose Photo From Phone
+          <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)">
+        </label>
+        <button class="btn" style="background:#eef2f8;color:#333;border:1px solid #ddd;" onclick="removePhoto()">🗑️ Remove Photo</button>
+      </div>
+      <p style="font-size:12px;color:#666;text-align:center;margin-top:8px;">📸 Photo is uploaded to Supabase server — it will show on all devices and will not be lost.</p>
     </div>
-    <!-- NEW PHOTO BUTTONS -->
-    <div class="photo-controls">
-      <label class="btn btn-photo" style="display:flex;align-items:center;justify-content:center;cursor:pointer;">📸 Choose Photo From Phone
-        <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)">
-      </label>
-      <button class="btn" style="background:#eef2f8;color:#333;border:1px solid #ddd;" onclick="removePhoto()">🗑️ Remove Photo</button>
-    </div>
-    <p style="font-size:12px;color:#666;text-align:center;margin-top:8px;">📸 Photo you choose stays on this device and will print. No internet needed after choosing.</p>
+
     <div class="btn-row">
-      <button class="btn btn-print" onclick="window.print()">🖨️ Print This Pupil</button>
+      <button class="btn btn-print" onclick="window.print()">🖨️ Print</button>
       <button class="btn btn-pdf" onclick="exportPDF()">📄 Export as PDF</button>
       <button class="btn btn-save" onclick="saveYearArchive()">💾 Save This Year (Admin)</button>
     </div>
     <p id="msg" style="text-align:center;font-size:13px;margin-top:10px;"></p>
-    <p style="font-size:12px;color:#666;text-align:center;margin-top:6px;">💡 PDF: Tap Export as PDF → In print dialog choose <b>Save as PDF</b> → Save.</p>
+    <p id="countText" style="text-align:center;font-size:12px;color:#666;"></p>
   </div>
 
-  <!-- A4 CARD -->
-  <div class="a4-wrap">
-    <div class="a4" id="reportCard">
-      <div class="a4-header">
-        <!-- REAL LOGO IMAGE - if logo.png missing, shows 🎓 -->
-        <img src="logo.png" class="a4-logo-img" id="schoolLogo" onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex';">
-        <div class="a4-logo-fallback" id="logoFallback" style="display:none;">🎓</div>
-        <img src="images/UNEB.jfif" class="bg-img">
-        <h1>DONDI PRIMARY SCHOOL</h1>
-        <p>P. O BOX 69, YUMBE - UGANDA</p>
-      </div>
-
-      <div class="a4-title">
-        <h2><span id="rcYear">2026</span> PRIMARY LEAVING EXAMINATION (PLE) PROVISIONAL RESULT SLIP</h2>
-              </div>
-
-      <div class="pupil-row">
-        <div class="pupil-info">
-          <b>Pupil Name:</b> <span id="rcName"></span><br>
-          <b>Gender:</b> <span id="rcGender"></span> &nbsp; <b>Class:</b> P.7<br>
-          <b>Index Number:</b> <span id="rcIndex"></span><br>
-        </div>
-        <div class="photo-box" id="photoBox">PUPIL<br>PHOTO</div>
-      </div>
-
-      <table class="report-table">
-        <tr><th>SUBJECT</th><th>AGGREGATE</th><th>REMARK</th></tr>
-        <tr><td>English</td><td id="rcEng">-</td><td id="rcEngRem">-</td></tr>
-        <tr><td>Mathematics</td><td id="rcMath">-</td><td id="rcMathRem">-</td></tr>
-        <tr><td>Science</td><td id="rcSci">-</td><td id="rcSciRem">-</td></tr>
-        <tr><td>Social Studies</td><td id="rcSst">-</td><td id="rcSstRem">-</td></tr>
-      </table>
-
-      <div class="summary">
-        <div>TOTAL AGGREGATE: <span id="rcTotal">-</span></div>
-        <div>DIVISION: <span id="rcDiv">-</span></div>
-      </div>
-
-      <div class="comments">
-        <b>Class Teacher's Comment:</b>
-        <div class="comment-box" id="rcTeacherComment">Excellent performance. Keep it up.</div>
-        <b>Headteacher's Comment:</b>
-        <div class="comment-box" id="rcHeadComment">Congratulations upon your success. Admitted to S.1.</div>
-      </div>
-
-      <div class="sign-area">
-        <div class="sign-box"><div class="sign-line">Class Teacher<br>Signature & Date</div></div>
-        <div class="stamp-box">SCHOOL<br>STAMP<br>HERE</div>
-        <div class="sign-box"><div class="sign-line">Headteacher<br>Signature & Date</div></div>
-      </div>
-
-      <div class="footer-red">Invalid without stamp</div>
-      <div class="footer-small">This is a school-issued provisional slip. Subject to confirmation by UNEB. • Printed on: <span id="printDate"></span></div>
-    </div>
-  </div>
+  <div class="a4-wrap" id="allCards"></div>
 
   <div class="card no-print" style="text-align:center;">
     <button class="btn btn-print" onclick="window.location.href='broadsheet.html'">📋 Back to Broadsheet</button>
   </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const BASE_URL = "https://xgadezouciekpsflwxdd.supabase.co";
-  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnYWRlem91Y2lla3BzZmx3eGRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM5NTQ0NDksImV4cCI6MjEwOTUzMDQ0OX0.UX6xUYRM_S3xjpf6IfoHko6T7Poz5YKaffX7EE1ldKM";
-  const supabaseClient = supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
-  let allPupils = [], allResults = {};
-  let currentPhotoData = ""; // stores chosen photo
+const BASE_URL = "https://xgadezouciekpsflwxdd.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhnYWRlem91Y2lla3BzZmx3eGRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM5NTQ0NDksImV4cCI6MjEwOTUzMDQ0OX0.UX6xUYRM_S3xjpf6IfoHko6T7Poz5YKaffX7EE1ldKM";
+const supabaseClient = supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+let allPupils=[], allResults={}, currentPupilId=null;
 
-  function remarkFor(agg){
-    if(["D1","D2"].includes(agg)) return "Distinction";
-    if(["C3","C4","C5","C6"].includes(agg)) return "Credit";
-    if(["P7","P8"].includes(agg)) return "Pass";
-    if(agg==="F9") return "Fail";
-    return "-";
-  }
-  function teacherComment(div){
-    if(div==="Div 1") return "Excellent performance. Keep it up.";
-    if(div==="Div 2") return "Very good performance. Work harder for Division 1.";
-    if(div==="Div 3") return "Good attempt. Put more effort in weak subjects.";
-    if(div==="Div 4") return "Fair performance. Needs serious improvement.";
-    return "Below expectation. Needs guidance and hard work.";
-  }
-  function headComment(div){
-    if(div==="Div 1") return "Congratulations upon your success. Admitted to S.1.";
-    if(div==="Div 2") return "Congratulations. You are admitted to S.1.";
-    if(div==="Div 3"||div==="Div 4") return "You have passed. Admitted to S.1. Work harder.";
-    return "Not passed. Please repeat / seek guidance.";
-  }
+function remarkFor(a){ if(["D1","D2"].includes(a)) return "Distinction"; if(["C3","C4","C5","C6"].includes(a)) return "Credit"; if(["P7","P8"].includes(a)) return "Pass"; if(a==="F9") return "Fail"; return "-"; }
+function teacherComment(d){ if(d==="Div 1") return "Excellent performance. Keep it up."; if(d==="Div 2") return "Very good performance. Work harder for Division 1."; if(d==="Div 3") return "Good attempt. Put more effort in weak subjects."; if(d==="Div 4") return "Fair performance. Needs serious improvement."; return "Below expectation. Needs guidance and hard work."; }
+function headComment(d){ if(d==="Div 1") return "Congratulations upon your success. Admitted to S.1."; if(d==="Div 2") return "Congratulations. You are admitted to S.1."; if(d==="Div 3"||d==="Div 4") return "You have passed. Admitted to S.1. Work harder."; return "Not passed. Please repeat / seek guidance."; }
 
-  async function loadPupilList(){
-    const { data: pupils } = await supabaseClient.from('pupils').select('*').order('name');
-    const { data: results } = await supabaseClient.from('results').select('*');
-    if(!pupils) return;
-    allPupils = pupils; allResults = {};
-    (results||[]).forEach(r=> allResults[r.pupil_id]=r);
-    const f = document.getElementById('filterSchool').value;
-    let filtered = pupils;
-    if(f!=="Combined") filtered = pupils.filter(p=>p.school===f);
-    document.getElementById('pupilSelect').innerHTML = '<option value="">🔍 Select Pupil...</option>' + filtered.map(p=>{
-      const has = allResults[p.id] ? "✅" : "⚠️ No Result";
-      return `<option value="${p.id}">${p.name} - ${p.school} - ${has}</option>`;
-    }).join('');
-  }
+function onModeChange(){
+  const mode=document.getElementById('printMode').value;
+  document.getElementById('individualBox').style.display = mode==='individual' ? 'block' : 'none';
+  renderCurrent();
+}
 
-  function loadReport(){
-    const id = document.getElementById('pupilSelect').value;
-    const year = document.getElementById('yearInput').value || 2026;
-    document.getElementById('rcYear').textContent = year;
-    document.getElementById('printDate').textContent = new Date().toLocaleDateString();
-    if(!id) return;
-    const p = allPupils.find(x=>x.id==id);
-    const r = allResults[id];
-    if(!p) return;
-    document.getElementById('rcName').textContent = p.name;
-    document.getElementById('rcGender').textContent = p.gender||"";
-    document.getElementById('rcIndex').textContent = p.index_number||"";
-    document.getElementById('rcSchool').textContent = p.school;
-    document.getElementById('rcStream').textContent = p.stream||"";
-    // Restore saved photo for this pupil if exists
-    const savedPhoto = localStorage.getItem("photo_"+id);
-    if(savedPhoto){ currentPhotoData = savedPhoto; document.getElementById('photoBox').innerHTML = `<img src="${savedPhoto}">`; }
-    else if(!currentPhotoData){ document.getElementById('photoBox').innerHTML = "PUPIL<br>PHOTO"; }
-    if(!r){
-      document.getElementById('msg').textContent = "⚠️ This pupil has no result yet. Go to Marks Entry."; document.getElementById('msg').style.color="red";
-      ["rcEng","rcMath","rcSci","rcSst"].forEach(id=>document.getElementById(id).textContent="-");
-      document.getElementById('rcTotal').textContent="-"; document.getElementById('rcDiv').textContent="-";
-      return;
-    }
-    document.getElementById('rcEng').textContent = r.eng_agg;
-    document.getElementById('rcMath').textContent = r.math_agg;
-    document.getElementById('rcSci').textContent = r.sci_agg;
-    document.getElementById('rcSst').textContent = r.sst_agg;
-    document.getElementById('rcEngRem').textContent = remarkFor(r.eng_agg);
-    document.getElementById('rcMathRem').textContent = remarkFor(r.math_agg);
-    document.getElementById('rcSciRem').textContent = remarkFor(r.sci_agg);
-    document.getElementById('rcSstRem').textContent = remarkFor(r.sst_agg);
-    document.getElementById('rcTotal').textContent = r.total;
-    document.getElementById('rcDiv').textContent = r.division;
-    document.getElementById('rcTeacherComment').textContent = teacherComment(r.division);
-    document.getElementById('rcHeadComment').textContent = headComment(r.division);
-    document.getElementById('msg').textContent = "✅ Loaded from Pupils + Marks - Ready to print"; document.getElementById('msg').style.color="green";
-  }
+function getFiltered(){
+  const f=document.getElementById('filterSchool').value;
+  if(f==="Combined") return allPupils;
+  return allPupils.filter(p=>p.school===f);
+}
 
-  // NEW: Photo from phone
-  function handlePhotoUpload(event){
-    const file = event.target.files[0];
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e){
-      currentPhotoData = e.target.result;
-      document.getElementById('photoBox').innerHTML = `<img src="${currentPhotoData}">`;
-      // Save for this pupil so next time it shows automatically
-      const pid = document.getElementById('pupilSelect').value;
-      if(pid) localStorage.setItem("photo_"+pid, currentPhotoData);
-      document.getElementById('msg').textContent = "✅ Photo added - Will print on report card"; document.getElementById('msg').style.color="green";
-    };
-    reader.readAsDataURL(file);
-  }
-  function updatePhotoUrl(){
-    const url = document.getElementById('photoUrl').value.trim();
-    if(url){ currentPhotoData = url; document.getElementById('photoBox').innerHTML = `<img src="${url}">`; }
-  }
-  function removePhoto(){
-    currentPhotoData = "";
-    document.getElementById('photoBox').innerHTML = "PUPIL<br>PHOTO";
-    document.getElementById('photoUrl').value = "";
-    document.getElementById('photoInput').value = "";
-    const pid = document.getElementById('pupilSelect').value;
-    if(pid) localStorage.removeItem("photo_"+pid);
-  }
+async function loadPupilList(){
+  const {data:pupils,error:e1}=await supabaseClient.from('pupils').select('*').order('name');
+  const {data:results,error:e2}=await supabaseClient.from('results').select('*');
+  if(e1){ document.getElementById('msg').textContent="❌ "+e1.message; return; }
+  allPupils=pupils||[]; allResults={};
+  (results||[]).forEach(r=> allResults[r.pupil_id]=r);
+  const filtered=getFiltered();
+  document.getElementById('pupilSelect').innerHTML='<option value="">🔍 Select Pupil...</option>'+filtered.map(p=>{
+    const has=allResults[p.id] ? "✅" : "⚠️ No Result";
+    return `<option value="${p.id}">${p.name} - ${p.school} - ${has}</option>`;
+  }).join('');
+  renderCurrent();
+}
 
-  function exportPDF(){
-    document.getElementById('msg').textContent = "📄 In the print dialog, choose Destination: Save as PDF"; document.getElementById('msg').style.color="#1a4d8f";
-    setTimeout(()=>window.print(), 400);
+// Build ONE card HTML from pupil + result — used for both modes
+function cardHTML(p,r,year){
+  const photo = p.photo_url ? `<img src="${p.photo_url}">` : "PUPIL<br>PHOTO";
+  const has = !!r;
+  const eng = has?r.eng_agg:"-", math=has?r.math_agg:"-", sci=has?r.sci_agg:"-", sst=has?r.sst_agg:"-";
+  return `
+  <div class="a4">
+    <div class="a4-header">
+      <img src="logo.png" class="a4-logo-img" onerror="this.style.display='none'">
+      <h1>DONDI PRIMARY SCHOOL</h1><p>P. O BOX 69, YUMBE - UGANDA</p>
+    </div>
+    <div class="a4-title"><h2>${year} PRIMARY LEAVING EXAMINATION (PLE) PROVISIONAL RESULT SLIP</h2></div>
+    <div class="pupil-row">
+      <div class="pupil-info"><b>Pupil Name:</b> ${p.name}<br><b>Gender:</b> ${p.gender||""} &nbsp; <b>Class:</b> P.7<br><b>Index Number:</b> ${p.index_number||""}<br><b>School:</b> ${p.school}</div>
+      <div class="photo-box">${photo}</div>
+    </div>
+    <table class="report-table"><tr><th>SUBJECT</th><th>AGGREGATE</th><th>REMARK</th></tr>
+      <tr><td>English</td><td>${eng}</td><td>${remarkFor(eng)}</td></tr>
+      <tr><td>Mathematics</td><td>${math}</td><td>${remarkFor(math)}</td></tr>
+      <tr><td>Science</td><td>${sci}</td><td>${remarkFor(sci)}</td></tr>
+      <tr><td>Social Studies</td><td>${sst}</td><td>${remarkFor(sst)}</td></tr>
+    </table>
+    <div class="summary"><div>TOTAL AGGREGATE: ${has?r.total:"-"}</div><div>DIVISION: ${has?r.division:"No Result Yet"}</div></div>
+    <div class="comments"><b>Class Teacher's Comment:</b><div class="comment-box">${has?teacherComment(r.division):"No result yet. Go to Marks Entry."}</div>
+    <b>Headteacher's Comment:</b><div class="comment-box">${has?headComment(r.division):"No result yet."}</div></div>
+    <div class="sign-area"><div class="sign-box"><div class="sign-line">Class Teacher<br>Signature & Date</div></div><div class="stamp-box">SCHOOL<br>STAMP<br>HERE</div><div class="sign-box"><div class="sign-line">Headteacher<br>Signature & Date</div></div></div>
+    <div class="footer-red">Invalid without stamp</div>
+    <div class="footer-small">This is a school-issued provisional slip. Subject to confirmation by UNEB. • Printed on: ${new Date().toLocaleDateString()}</div>
+  </div>`;
+}
+
+function renderCurrent(){
+  const mode=document.getElementById('printMode').value;
+  const year=document.getElementById('yearInput')?.value || 2026;
+  const wrap=document.getElementById('allCards');
+  if(mode==='all'){
+    const list=getFiltered();
+    document.getElementById('countText').textContent=`Showing ${list.length} report cards — all pupils with their marks & photos`;
+    if(!list.length){ wrap.innerHTML='<p style="text-align:center">No pupils found.</p>'; return; }
+    wrap.innerHTML=list.map(p=>cardHTML(p, allResults[p.id], year)).join('');
+    document.getElementById('msg').textContent="✅ All report cards loaded — Tap Print to print all";
+    document.getElementById('msg').style.color="green";
+  } else {
+    // individual — will be filled by loadReport, keep placeholder if none selected
+    if(!currentPupilId){ wrap.innerHTML='<p style="text-align:center;color:#666">👆 Select a pupil above to see his report card</p>'; return; }
   }
-  async function saveYearArchive(){
-    const year = document.getElementById('yearInput').value || 2026;
-    if(!confirm(`Save ALL results for year ${year} as archive? This is for Admin only.`)) return;
-    const { data: pupils } = await supabaseClient.from('pupils').select('*');
-    const { data: results } = await supabaseClient.from('results').select('*');
-    if(!pupils || !results){ alert("No data to archive"); return; }
-    const rows = results.map(r=>{
-      const p = pupils.find(x=>x.id===r.pupil_id); if(!p) return null;
-      return { year: parseInt(year), pupil_name: p.name, gender: p.gender, index_number: p.index_number, school: p.school, stream: p.stream, eng_agg: r.eng_agg, math_agg: r.math_agg, sci_agg: r.sci_agg, sst_agg: r.sst_agg, total: r.total, division: r.division };
-    }).filter(Boolean);
-    const { error } = await supabaseClient.from('year_archives').insert(rows);
-    if(error){ document.getElementById('msg').textContent = "❌ " + error.message; document.getElementById('msg').style.color="red"; }
-    else { document.getElementById('msg').textContent = `✅ Year ${year} saved! ${rows.length} report cards archived.`; document.getElementById('msg').style.color="green"; }
-  }
-  document.getElementById('yearInput').addEventListener('input', e=> document.getElementById('rcYear').textContent = e.target.value);
-  document.getElementById('printDate').textContent = new Date().toLocaleDateString();
-  const saved = localStorage.getItem("selectedSchool");
-  if(saved) document.getElementById('filterSchool').value = saved;
-  loadPupilList();
+}
+
+function loadReport(){
+  const id=document.getElementById('pupilSelect').value;
+  currentPupilId=id||null;
+  if(!id) { renderCurrent(); return; }
+  const p=allPupils.find(x=>x.id==id); const r=allResults[id];
+  const year=document.getElementById('yearInput').value||2026;
+  document.getElementById('allCards').innerHTML=cardHTML(p,r,year);
+  if(!r){ document.getElementById('msg').textContent="⚠️ This pupil has no result yet. Go to Marks Entry."; document.getElementById('msg').style.color="red"; }
+  else { document.getElementById('msg').textContent="✅ Loaded from Pupils + Marks - Ready to print"; document.getElementById('msg').style.color="green"; }
+}
+
+// PHOTO — UPLOAD TO SUPABASE STORAGE
+async function handlePhotoUpload(event){
+  const file=event.target.files[0]; if(!file) return;
+  const pid=document.getElementById('pupilSelect').value;
+  if(!pid){ alert("Please select a pupil first, then choose photo."); return; }
+  document.getElementById('msg').textContent="⏳ Uploading photo to server..."; document.getElementById('msg').style.color="#1a4d8f";
+  const fileName=`${pid}_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g,'_')}`;
+  const {error:upErr}=await supabaseClient.storage.from('pupil-photos').upload(fileName,file,{upsert:true});
+  if(upErr){ document.getElementById('msg').textContent="❌ Upload failed: "+upErr.message; document.getElementById('msg').style.color="red"; return; }
+  const {data}=supabaseClient.storage.from('pupil-photos').getPublicUrl(fileName);
+  const url=data.publicUrl;
+  const {error:dbErr}=await supabaseClient.from('pupils').update({photo_url:url}).eq('id',pid);
+  if(dbErr){ document.getElementById('msg').textContent="❌ "+dbErr.message; return; }
+  // update local copy and re-render
+  const p=allPupils.find(x=>x.id==pid); if(p) p.photo_url=url;
+  document.getElementById('msg').textContent="✅ Photo saved to server — will show on all devices"; document.getElementById('msg').style.color="green";
+  loadReport();
+}
+function updatePhotoUrl(){
+  const url=document.getElementById('photoUrl').value.trim();
+  const pid=document.getElementById('pupilSelect').value;
+  if(!url||!pid) return;
+  supabaseClient.from('pupils').update({photo_url:url}).eq('id',pid).then(()=>{
+    const p=allPupils.find(x=>x.id==pid); if(p) p.photo_url=url; loadReport();
+  });
+}
+async function removePhoto(){
+  const pid=document.getElementById('pupilSelect').value; if(!pid) return;
+  await supabaseClient.from('pupils').update({photo_url:null}).eq('id',pid);
+  const p=allPupils.find(x=>x.id==pid); if(p) p.photo_url=null;
+  document.getElementById('photoUrl').value=""; document.getElementById('photoInput').value="";
+  loadReport();
+}
+function exportPDF(){ document.getElementById('msg').textContent="📄 In print dialog, choose Destination: Save as PDF"; setTimeout(()=>window.print(),400); }
+async function saveYearArchive(){
+  const year=document.getElementById('yearInput')?.value||2026;
+  if(!confirm(`Save ALL results for year ${year} as archive?`)) return;
+  const {data:pupils}=await supabaseClient.from('pupils').select('*');
+  const {data:results}=await supabaseClient.from('results').select('*');
+  if(!pupils||!results){ alert("No data"); return; }
+  const rows=results.map(r=>{ const p=pupils.find(x=>x.id===r.pupil_id); if(!p) return null; return {year:parseInt(year),pupil_name:p.name,gender:p.gender,index_number:p.index_number,school:p.school,stream:p.stream,eng_agg:r.eng_agg,math_agg:r.math_agg,sci_agg:r.sci_agg,sst_agg:r.sst_agg,total:r.total,division:r.division}; }).filter(Boolean);
+  const {error}=await supabaseClient.from('year_archives').insert(rows);
+  if(error) document.getElementById('msg').textContent="❌ "+error.message; else document.getElementById('msg').textContent=`✅ Year ${year} saved! ${rows.length} archived.`;
+}
+const saved=localStorage.getItem("selectedSchool"); if(saved) document.getElementById('filterSchool').value=saved;
+loadPupilList();
 </script>
 </body>
 </html>
